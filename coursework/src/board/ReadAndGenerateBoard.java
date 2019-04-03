@@ -121,7 +121,7 @@ public class ReadAndGenerateBoard {
 	/************************************************************************************/
 
 	public int getNumberOfColumns() {
-		return boardArray.get(1).length();
+		return boardArray.get(0).length();
 	}
 
 }
