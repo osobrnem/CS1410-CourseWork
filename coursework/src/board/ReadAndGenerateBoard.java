@@ -18,28 +18,32 @@ public class ReadAndGenerateBoard {
 
 	public ReadAndGenerateBoard() throws Exception {
 	}
+	
+	/************************************************************************************/
 
 	public String[][] generateBoard(String boardFile) throws Exception {
 		generateArraylist(boardFile);
 		board = arrayToBoardArray(boardArray);
 		return board;
 	}
+	
+	/************************************************************************************/
 
 	public void generateArraylist(String boardFile) throws Exception {
-		ArrayList<String> board = new ArrayList<>();
+		ArrayList<String> Array = new ArrayList<>();
 
 		try (Scanner s = new Scanner(new FileReader(boardFile))) {
 			while (s.hasNext()) {
-				board.add(s.nextLine());
+				Array.add(s.nextLine());
 
 			}
-			board.remove("format 1");
+			Array.remove("format 1");
 		} catch (Exception e) {
 		}
 
-		checkColAndRowNumbers(board);
+		checkColAndRowNumbers(Array);
 
-		boardArray = board;
+		boardArray = Array;
 	}
 
 	/************************************************************************************/
