@@ -21,9 +21,17 @@ public class ReadAndGenerateBoard {
 
 	/************************************************************************************/
 
+	/**
+	 *
+	 * Generate the board from other functions
+	 *
+	 * @param boardFile
+	 * @return board
+	 * @throws Exception
+	 */
 	public String[][] generateBoard(String boardFile) throws Exception {
 
-		if(!checkFileType(boardFile).equals("BRD")){
+		if (!checkFileType(boardFile).equals("BRD")) {
 			throw new IllegalArgumentException("File type is wrong");
 		}
 
@@ -32,9 +40,15 @@ public class ReadAndGenerateBoard {
 		return board;
 	}
 
-
 	/************************************************************************************/
 
+	/**
+	 *
+	 * Get the file type of a file
+	 *
+	 * @param fileName
+	 * @return fileType returns the type of file it is
+	 */
 	public static String checkFileType(String fileName) {
 		String fileType = "";
 
@@ -46,9 +60,18 @@ public class ReadAndGenerateBoard {
 		return fileType;
 	}
 
-
 	/************************************************************************************/
 
+	/**
+	 *
+	 * Generate ArrayList
+	 *
+	 * <p> Generate an ArrayList from the scanned file. This make it easier to edit the file.
+	 * It also make it easier to turn into a two dimensional array. </p>
+	 *
+	 * @param boardFile
+	 * @throws Exception
+	 */
 	public void generateArraylist(String boardFile) throws Exception {
 		ArrayList<String> Array = new ArrayList<>();
 
@@ -59,6 +82,7 @@ public class ReadAndGenerateBoard {
 			}
 			Array.remove("format 1");
 		} catch (Exception e) {
+
 		}
 
 		checkColAndRowNumbers(Array);
@@ -68,6 +92,15 @@ public class ReadAndGenerateBoard {
 
 	/************************************************************************************/
 
+	/**
+	 *
+	 * Print the ArrayList
+	 *
+	 * <p> Print the output of the ArrayList to console.
+	 * This should match what is in the .BRD file except it should not have the format 1 </p>
+	 *
+	 * @throws Exception
+	 */
 	public void printArrayList() throws Exception {
 
 		for (int i = 0; i < boardArray.size(); i++) {
@@ -81,6 +114,13 @@ public class ReadAndGenerateBoard {
 
 	/************************************************************************************/
 
+	/**
+	 *
+	 * Check if the array has the correct dimensions
+	 *
+	 * @param board
+	 * @return boolean
+	 */
 	public boolean checkColAndRowNumbers(ArrayList<String> board) {
 		for (int i = 0; i < board.size(); i++) {
 			if (board.get(0).length() != board.get(i).length()) {
@@ -95,6 +135,16 @@ public class ReadAndGenerateBoard {
 
 	/************************************************************************************/
 
+	/**
+	 *
+	 * Turn the ArrayList into a two dimensional array
+	 *
+	 * <p> Checks the file for know characters and creates the entities that correspond to it</p>
+	 *
+	 * @param boardArray
+	 * @return board two dimensional array
+	 * @throws Exception
+	 */
 	public String[][] arrayToBoardArray(ArrayList<String> boardArray) throws Exception {
 
 		row = getNumberOfRows();
@@ -134,12 +184,24 @@ public class ReadAndGenerateBoard {
 
 	/************************************************************************************/
 
+	/**
+	 *
+	 * Get number of rows
+	 *
+	 * @return rows
+	 */
 	public int getNumberOfRows() {
 		return boardArray.size();
 	}
 
 	/************************************************************************************/
 
+	/**
+	 *
+	 * Get number of Columns
+	 *
+	 * @return Columns
+	 */
 	public int getNumberOfColumns() {
 		return boardArray.get(1).length();
 	}

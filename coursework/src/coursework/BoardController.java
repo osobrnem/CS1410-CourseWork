@@ -12,6 +12,9 @@ public class BoardController {
 	@FXML
 	private TextArea BoardOut;
 
+	/**
+	 * Set the text area as not editable
+	 */
 	public void initialize() {
 		BoardOut.setEditable(false);
 	}

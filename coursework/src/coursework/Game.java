@@ -20,19 +20,13 @@ public class Game {
 	 * @param args
 	 * @throws Exception
 	 *
-	 *
-	 * @link #Board
 	 */
 
 	public Game(String file) throws Exception {
-
-
 
 		new Board(file);
 	}
 
 	/************************************************************************************/
-
-
 
 }
