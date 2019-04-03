@@ -18,15 +18,35 @@ public class ReadAndGenerateBoard {
 
 	public ReadAndGenerateBoard() throws Exception {
 	}
-	
+
 	/************************************************************************************/
 
 	public String[][] generateBoard(String boardFile) throws Exception {
+
+		if(!checkFileType(boardFile).equals("BRD")){
+			throw new IllegalArgumentException("File type is wrong");
+		}
+
 		generateArraylist(boardFile);
 		board = arrayToBoardArray(boardArray);
 		return board;
 	}
-	
+
+
+	/************************************************************************************/
+
+	public static String checkFileType(String fileName) {
+		String fileType = "";
+
+		int i = fileName.lastIndexOf('.');
+		if (i > 0) {
+			fileType = fileName.substring(i + 1);
+		}
+
+		return fileType;
+	}
+
+
 	/************************************************************************************/
 
 	public void generateArraylist(String boardFile) throws Exception {
@@ -121,7 +141,7 @@ public class ReadAndGenerateBoard {
 	/************************************************************************************/
 
 	public int getNumberOfColumns() {
-		return boardArray.get(0).length();
+		return boardArray.get(1).length();
 	}
 
 }
