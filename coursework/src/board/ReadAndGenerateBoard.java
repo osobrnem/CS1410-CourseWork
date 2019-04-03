@@ -7,11 +7,19 @@ package board;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
+
+import coursework.model.Entity;
+import coursework.model.Flag;
+import coursework.model.Robot;
 
 public class ReadAndGenerateBoard {
 
-	private static String[][] board;
+	private static String[][] boardString;
+	private static Entity[][] boardEntity;
 	private static ArrayList<String> boardArray;
 	private static int row;
 	private static int col;
@@ -29,19 +37,39 @@ public class ReadAndGenerateBoard {
 	 * @return board
 	 * @throws Exception
 	 */
-	public String[][] generateBoard(String boardFile) throws Exception {
+	public String[][] generateBoardString(String boardFile) throws Exception {
 
 		if (!checkFileType(boardFile).equals("BRD")) {
 			throw new IllegalArgumentException("File type is wrong");
 		}
 
 		generateArraylist(boardFile);
-		board = arrayToBoardArray(boardArray);
-		return board;
+		boardString = arrayToBoardStringArray(boardArray);
+		return boardString;
 	}
 
 	/************************************************************************************/
 
+	/**
+	 *
+	 * Generate the board from other functions
+	 *
+	 * @param boardFile
+	 * @return board
+	 * @throws Exception
+	 */
+	public Entity[][] generateBoardEntity(String boardFile) throws Exception {
+
+		if (!checkFileType(boardFile).equals("BRD")) {
+			throw new IllegalArgumentException("File type is wrong");
+		}
+
+		generateArraylist(boardFile);
+		boardEntity = arrayToBoardEntityArray(boardArray);
+		return boardEntity;
+	}
+
+	/************************************************************************************/
 	/**
 	 *
 	 * Get the file type of a file
@@ -139,50 +167,95 @@ public class ReadAndGenerateBoard {
 	 *
 	 * Turn the ArrayList into a two dimensional array
 	 *
-	 * <p> Checks the file for know characters and creates the entities that correspond to it</p>
+	 * <p> Checks the file for know characters and creates a String that correspond to it</p>
 	 *
 	 * @param boardArray
-	 * @return board two dimensional array
+	 * @return board two dimensional array (String)
 	 * @throws Exception
 	 */
-	public String[][] arrayToBoardArray(ArrayList<String> boardArray) throws Exception {
+	public String[][] arrayToBoardStringArray(ArrayList<String> boardArray) throws Exception {
 
 		row = getNumberOfRows();
 		col = getNumberOfColumns();
 
-		board = new String[row][col];
+		boardString = new String[row][col];
 
 		for (int i = 0; i < row; i++) {
 			for (int str = 0; str < col; str++) {
 				if (boardArray.get(i).charAt(str) == '.') {
-					board[i][str] = "|  Empty  |";
+					boardString[i][str] = "|  Empty  |";
 				} else if (boardArray.get(i).charAt(str) == '1') {
-					board[i][str] = "|  Flag1  |";
+					boardString[i][str] = "|  Flag1  |";
 				} else if (boardArray.get(i).charAt(str) == '2') {
-					board[i][str] = "|  Flag2  |";
+					boardString[i][str] = "|  Flag2  |";
 				} else if (boardArray.get(i).charAt(str) == '3') {
-					board[i][str] = "|  Flag3  |";
+					boardString[i][str] = "|  Flag3  |";
 				} else if (boardArray.get(i).charAt(str) == '4') {
-					board[i][str] = "|  Flag4  |";
+					boardString[i][str] = "|  Flag4  |";
 				} else if (boardArray.get(i).charAt(str) == 'A') {
-					board[i][str] = "| Player1 |";
+					boardString[i][str] = "| Player1 |";
 				} else if (boardArray.get(i).charAt(str) == 'B') {
-					board[i][str] = "| Player2 |";
+					boardString[i][str] = "| Player2 |";
 				} else if (boardArray.get(i).charAt(str) == 'C') {
-					board[i][str] = "| Player3 |";
+					boardString[i][str] = "| Player3 |";
 				} else if (boardArray.get(i).charAt(str) == 'D') {
-					board[i][str] = "| Player4 |";
+					boardString[i][str] = "| Player4 |";
 				} else {
-					board[i][str] = "|Not empty|";
+					boardString[i][str] = "|Not empty|";
 					System.out.println("BOARD HAS INVALID CHARACTER");
 				}
 			}
 		}
 
-		return board;
+		return boardString;
 	}
 
 	/************************************************************************************/
+
+	/**
+	 *
+	 * Turn the ArrayList into a two dimensional Entity array
+	 *
+	 * <p> Checks the file for know characters and creates the entities that correspond to it</p>
+	 *
+	 * @param boardArray
+	 * @return board two dimensional array (Entity)
+	 * @throws Exception
+	 */
+
+	public Entity[][] arrayToBoardEntityArray(ArrayList<String> boardArray) throws Exception {
+
+		row = getNumberOfRows();
+		col = getNumberOfColumns();
+
+		String[] flags = new String[]{"1","2","3","4"};
+		String[] players = new String[]{"A","B","C","D"};
+
+
+		boardEntity = new Entity[row][col];
+
+		for (int i = 0; i < row; i++) {
+			for (int str = 0; str < col; str++) {
+				if (boardArray.get(i).charAt(str) == '.') {
+					boardEntity[i][str] = null;
+				} else if (Arrays.stream(flags).anyMatch(Character.toString(boardArray.get(i).charAt(str))::equals)) {
+					boardEntity[i][str] = new Flag(boardArray.get(i).charAt(str));
+				} else if (Arrays.stream(players).anyMatch(Character.toString(boardArray.get(i).charAt(str))::equals)) {
+					boardEntity[i][str] = new Robot(boardArray.get(i).charAt(str));
+				} else {
+					boardString[i][str] = "|Not empty|";
+					System.out.println("BOARD HAS INVALID CHARACTER");
+				}
+			}
+		}
+
+		return boardEntity;
+	}
+
+
+	/************************************************************************************/
+
+
 
 	/**
 	 *
