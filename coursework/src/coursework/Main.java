@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 public class Main extends Application  {
 
 
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try{
@@ -29,6 +33,9 @@ public class Main extends Application  {
 
 	/************************************************************************************/
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args){
 		launch(args);
 	}
