@@ -12,6 +12,8 @@ import board.Board;
 
 public class Game {
 
+	private Board board;
+
 	/**
 	 *
 	 * Creates a <code> board </code> from a file.
@@ -24,7 +26,7 @@ public class Game {
 
 	public Game(String file) throws Exception {
 
-		new Board(file);
+		board = new Board(file);
 	}
 
 	/************************************************************************************/

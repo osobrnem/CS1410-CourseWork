@@ -1,5 +1,10 @@
 package coursework;
 
+/**
+ * @author Matthew
+ *
+ */
+
 import board.Board;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -14,23 +19,40 @@ public class BoardController {
 
 	/**
 	 * Set the text area as not editable
+	 *
+	 * Sets the text field to give a description
 	 */
 	public void initialize() {
 		BoardOut.setEditable(false);
+		FileInput.setPromptText("Enter file location");
 	}
 
 	/************************************************************************************/
 
+
+
+
+	/**
+	 *
+	 * Creates a new game using the file directory given
+	 *
+	 * @throws Exception
+	 */
+
+
 	@FXML
 	public void submitButton() throws Exception{
 
-		new Game(FileInput.getText());
+		Game g = new Game(FileInput.getText());
 
 		setBoard();
 	}
 
 	/************************************************************************************/
 
+	/**
+	 * Shows a text version of the board
+	 */
 	@FXML
 	public void setBoard() {
 		BoardOut.setText(Board.arrayToString());

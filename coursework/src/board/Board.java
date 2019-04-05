@@ -75,7 +75,7 @@ public class Board {
 
 		for (int i = 0; i < row; i++) {
 			for (int str = 0; str < col; str++) {
-				s = s + boardString[i][str] + " ";
+				s = s + boardString[i][str];
 			}
 			s = s + "\n";
 		}

@@ -1,5 +1,6 @@
 package board;
 
+
 /**
  * @author Matthew
  *
@@ -8,9 +9,7 @@ package board;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 import coursework.model.Entity;
 import coursework.model.Flag;
@@ -39,9 +38,7 @@ public class ReadAndGenerateBoard {
 	 */
 	public String[][] generateBoardString(String boardFile) throws Exception {
 
-		if (!checkFileType(boardFile).equals("BRD")) {
-			throw new IllegalArgumentException("File type is wrong");
-		}
+		checkFileType(boardFile);
 
 		generateArraylist(boardFile);
 		boardString = arrayToBoardStringArray(boardArray);
@@ -60,9 +57,7 @@ public class ReadAndGenerateBoard {
 	 */
 	public Entity[][] generateBoardEntity(String boardFile) throws Exception {
 
-		if (!checkFileType(boardFile).equals("BRD")) {
-			throw new IllegalArgumentException("File type is wrong");
-		}
+		checkFileType(boardFile);
 
 		generateArraylist(boardFile);
 		boardEntity = arrayToBoardEntityArray(boardArray);
@@ -77,7 +72,7 @@ public class ReadAndGenerateBoard {
 	 * @param fileName
 	 * @return fileType returns the type of file it is
 	 */
-	public static String checkFileType(String fileName) {
+	public void checkFileType(String fileName) {
 		String fileType = "";
 
 		int i = fileName.lastIndexOf('.');
@@ -85,7 +80,10 @@ public class ReadAndGenerateBoard {
 			fileType = fileName.substring(i + 1);
 		}
 
-		return fileType;
+		if (!fileType.equals("BRD")) {
+			throw new IllegalArgumentException("File type is wrong");
+		}
+
 	}
 
 	/************************************************************************************/
@@ -94,8 +92,10 @@ public class ReadAndGenerateBoard {
 	 *
 	 * Generate ArrayList
 	 *
-	 * <p> Generate an ArrayList from the scanned file. This make it easier to edit the file.
-	 * It also make it easier to turn into a two dimensional array. </p>
+	 * <p>
+	 * Generate an ArrayList from the scanned file. This make it easier to edit
+	 * the file. It also make it easier to turn into a two dimensional array.
+	 * </p>
 	 *
 	 * @param boardFile
 	 * @throws Exception
@@ -108,10 +108,9 @@ public class ReadAndGenerateBoard {
 				Array.add(s.nextLine());
 
 			}
-			Array.remove("format 1");
 		} catch (Exception e) {
-
 		}
+		Array.remove("format 1");
 
 		checkColAndRowNumbers(Array);
 
@@ -124,12 +123,14 @@ public class ReadAndGenerateBoard {
 	 *
 	 * Print the ArrayList
 	 *
-	 * <p> Print the output of the ArrayList to console.
-	 * This should match what is in the .BRD file except it should not have the format 1 </p>
+	 * <p>
+	 * Print the output of the ArrayList to console. This should match what is
+	 * in the .BRD file except it should not have the format 1
+	 * </p>
 	 *
-	 * @throws Exception
+	 *
 	 */
-	public void printArrayList() throws Exception {
+	public void printArrayList() {
 
 		for (int i = 0; i < boardArray.size(); i++) {
 			for (int str = 0; str < boardArray.get(i).length(); str++) {
@@ -167,7 +168,10 @@ public class ReadAndGenerateBoard {
 	 *
 	 * Turn the ArrayList into a two dimensional array
 	 *
-	 * <p> Checks the file for know characters and creates a String that correspond to it</p>
+	 * <p>
+	 * Checks the file for know characters and creates a String that correspond
+	 * to it
+	 * </p>
 	 *
 	 * @param boardArray
 	 * @return board two dimensional array (String)
@@ -216,7 +220,10 @@ public class ReadAndGenerateBoard {
 	 *
 	 * Turn the ArrayList into a two dimensional Entity array
 	 *
-	 * <p> Checks the file for know characters and creates the entities that correspond to it</p>
+	 * <p>
+	 * Checks the file for know characters and creates the entities that
+	 * correspond to it
+	 * </p>
 	 *
 	 * @param boardArray
 	 * @return board two dimensional array (Entity)
@@ -228,9 +235,8 @@ public class ReadAndGenerateBoard {
 		row = getNumberOfRows();
 		col = getNumberOfColumns();
 
-		String[] flags = new String[]{"1","2","3","4"};
-		String[] players = new String[]{"A","B","C","D"};
-
+		String[] flags = new String[] { "1", "2", "3", "4" };
+		String[] players = new String[] { "A", "B", "C", "D" };
 
 		boardEntity = new Entity[row][col];
 
@@ -243,8 +249,7 @@ public class ReadAndGenerateBoard {
 				} else if (Arrays.stream(players).anyMatch(Character.toString(boardArray.get(i).charAt(str))::equals)) {
 					boardEntity[i][str] = new Robot(boardArray.get(i).charAt(str));
 				} else {
-					boardString[i][str] = "|Not empty|";
-					System.out.println("BOARD HAS INVALID CHARACTER");
+					throw new IllegalArgumentException("BOARD HAS INVALID CHARACTER");
 				}
 			}
 		}
@@ -252,10 +257,7 @@ public class ReadAndGenerateBoard {
 		return boardEntity;
 	}
 
-
 	/************************************************************************************/
-
-
 
 	/**
 	 *
