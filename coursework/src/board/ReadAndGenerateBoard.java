@@ -1,8 +1,7 @@
 package board;
 
-
 /**
- * @author Matthew
+ * @author Matthew Osborne
  *
  */
 
@@ -18,12 +17,26 @@ import coursework.model.Robot;
 public class ReadAndGenerateBoard {
 
 	private static String[][] boardString;
-	private static Entity[][] boardEntity;
 	private static ArrayList<String> boardArray;
+	private ArrayList<Robot> playerRobots;
+
 	private static int row;
 	private static int col;
+	private int numberOfPlayers;
 
-	public ReadAndGenerateBoard() throws Exception {
+	public ReadAndGenerateBoard(int NOP) throws Exception {
+		numberOfPlayers = NOP;
+	}
+
+	/************************************************************************************/
+
+	/**
+	 * Returns the player array
+	 *
+	 * @returnplayerRobots
+	 */
+	public ArrayList<Robot> getPlayerRobots() {
+		return playerRobots;
 	}
 
 	/************************************************************************************/
@@ -60,8 +73,7 @@ public class ReadAndGenerateBoard {
 		checkFileType(boardFile);
 
 		generateArraylist(boardFile);
-		boardEntity = arrayToBoardEntityArray(boardArray);
-		return boardEntity;
+		return arrayToBoardEntityArray(boardArray);
 	}
 
 	/************************************************************************************/
@@ -235,10 +247,10 @@ public class ReadAndGenerateBoard {
 		row = getNumberOfRows();
 		col = getNumberOfColumns();
 
-		String[] flags = new String[] { "1", "2", "3", "4" };
 		String[] players = new String[] { "A", "B", "C", "D" };
+		String[] flags = new String[] { "1", "2", "3", "4" };
 
-		boardEntity = new Entity[row][col];
+		Entity[][] boardEntity = new Entity[row][col];
 
 		for (int i = 0; i < row; i++) {
 			for (int str = 0; str < col; str++) {
@@ -247,7 +259,7 @@ public class ReadAndGenerateBoard {
 				} else if (Arrays.stream(flags).anyMatch(Character.toString(boardArray.get(i).charAt(str))::equals)) {
 					boardEntity[i][str] = new Flag(boardArray.get(i).charAt(str));
 				} else if (Arrays.stream(players).anyMatch(Character.toString(boardArray.get(i).charAt(str))::equals)) {
-					boardEntity[i][str] = new Robot(boardArray.get(i).charAt(str));
+					boardEntity[i][str] = null;
 				} else {
 					throw new IllegalArgumentException("BOARD HAS INVALID CHARACTER");
 				}
@@ -255,6 +267,59 @@ public class ReadAndGenerateBoard {
 		}
 
 		return boardEntity;
+	}
+
+	/**
+	 *
+	 * Generates the player array
+	 *
+	 * <p>
+	 * Player array is used so that it is easier to check if the adjacent places
+	 * are empty for the robot to move
+	 * </p>
+	 *
+	 * @param boardFile
+	 * @return playerArray
+	 */
+
+	public Robot[][] generateBoardPlayers(String boardFile) {
+		String[] players = null;
+		String[] boardEntities = new String[] { "1", "2", "3", "4", "." };
+
+		Robot[][] playerArray = new Robot[row][col];
+		Robot[] tempPlayerArray = new Robot[4];
+
+		if (numberOfPlayers == 1) {
+			players = new String[] { "A" };
+			// players = player;
+		} else if (numberOfPlayers == 2) {
+			players = new String[] { "A", "B" };
+		} else if (numberOfPlayers == 3) {
+			players = new String[] { "A", "B", "C" };
+		} else if (numberOfPlayers == 4) {
+			players = new String[] { "A", "B", "C", "D" };
+		}
+
+		for (int i = 0; i < row; i++) {
+			for (int str = 0; str < col; str++) {
+				if (Arrays.stream(boardEntities).anyMatch(Character.toString(boardArray.get(i).charAt(str))::equals)) {
+					playerArray[i][str] = null;
+				} else if (Arrays.stream(players).anyMatch(Character.toString(boardArray.get(i).charAt(str))::equals)) {
+					playerArray[i][str] = new Robot(boardArray.get(i).charAt(str), i, str);
+					if (playerArray[i][str].getID().equalsIgnoreCase("A") && numberOfPlayers >= 1) {
+						tempPlayerArray[0] = playerArray[i][str];
+					} else if (playerArray[i][str].getID().equalsIgnoreCase("B") && numberOfPlayers >= 2) {
+						tempPlayerArray[1] = playerArray[i][str];
+					} else if (playerArray[i][str].getID().equalsIgnoreCase("C") && numberOfPlayers >= 3) {
+						tempPlayerArray[2] = playerArray[i][str];
+					} else if (playerArray[i][str].getID().equalsIgnoreCase("D") && numberOfPlayers >= 4) {
+						tempPlayerArray[3] = playerArray[i][str];
+					}
+				}
+			}
+		}
+		playerRobots = new ArrayList<Robot>(Arrays.asList(tempPlayerArray));
+		return playerArray;
 	}
 
 	/************************************************************************************/

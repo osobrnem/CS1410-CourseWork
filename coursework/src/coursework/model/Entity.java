@@ -1,10 +1,14 @@
 package coursework.model;
 
+
+/**
+ * @author Lewis Miller
+ *
+ */
 public abstract class Entity {
 
 	protected int row;
 	protected int col;
-	//protected Move move;
 
 	public Entity() {
 
@@ -38,17 +42,9 @@ public abstract class Entity {
 			return true;
 		}
 		else {
-			return true;
+			return false;
 		}
 	}
 
 
-	/*public void setMove(Move newMove){
-		move = newMove;
-	}
-
-	public Move getMove() {
-		return move;
-	}
-	*/
 }
