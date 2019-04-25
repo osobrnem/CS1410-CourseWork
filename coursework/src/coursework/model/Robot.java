@@ -2,8 +2,8 @@ package coursework.model;
 
 import java.util.ArrayList;
 
-import board.Board;
-import main.Move;
+import coursework.Board;
+import coursework.Move;
 
 /**
  *
@@ -99,6 +99,10 @@ public class Robot extends Entity {
 		ID = id;
 	}
 
+	public ArrayList<Integer> getFlags(){
+		return flags;
+	}
+
 	/************************************************************************************/
 
 	private void respawn() {
@@ -136,5 +140,7 @@ public class Robot extends Entity {
 			}
 		}
 	}
+
+
 
 }

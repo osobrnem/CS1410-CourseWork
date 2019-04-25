@@ -5,9 +5,7 @@ package coursework;
  *
  */
 
-import board.Board;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class BoardController {
@@ -15,7 +13,7 @@ public class BoardController {
 	@FXML
 	private TextField FileInput;
 	@FXML
-	private TextArea BoardOut;
+	private TextField NumberInput;
 
 	/**
 	 * Set the text area as not editable
@@ -23,39 +21,34 @@ public class BoardController {
 	 * Sets the text field to give a description
 	 */
 	public void initialize() {
-		BoardOut.setEditable(false);
+
 		FileInput.setPromptText("Enter file location");
 	}
 
 	/************************************************************************************/
 
-
-
-
 	/**
 	 *
-	 * Creates a new game using the file directory given
+	 * Creates a new game
+	 *
+	 * <p>
+	 * Sets the parameters for the file directory given and number of players
+	 * </p>
 	 *
 	 * @throws Exception
 	 */
 
-
 	@FXML
-	public void submitButton() throws Exception{
-
-		Game g = new Game(FileInput.getText());
-
-		setBoard();
+	public void submitButton() throws Exception {
+		if (!(FileInput.getText().equals(null)) && Integer.parseInt(NumberInput.getText()) <= 4
+				&& Integer.parseInt(NumberInput.getText()) > 0) {
+			// GameController.setBoardLocation(FileInput.getText());
+			GameController.setBoardLocation("D:\\Desktop\\CS1410 Coursework\\boards\\BIG.BRD");
+			GameController.setNumberOfPlayers(Integer.parseInt(NumberInput.getText()));
+			FileInput.getScene().getWindow().hide();
+		}
 	}
 
 	/************************************************************************************/
-
-	/**
-	 * Shows a text version of the board
-	 */
-	@FXML
-	public void setBoard() {
-		BoardOut.setText(Board.arrayToString());
-	}
 
 }

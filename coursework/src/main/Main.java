@@ -1,5 +1,7 @@
 package main;
 
+import coursework.GameController;
+
 /**
  * @author Matthew Osborne
  *
