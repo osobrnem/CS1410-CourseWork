@@ -129,7 +129,7 @@ public class Board {
 				if (playerLocations[i][str] == null && boardEntity[i][str] == null) {
 					s[i][str] = "";
 				} else {
-					if (playerLocations[i][str] != null) {
+					if (playerLocations[i][str] != null && playerLocations[i][str].getIsAlive()) {
 						s[i][str] = "" + playerLocations[i][str].getID() + "";
 					} else if (boardEntity[i][str] instanceof Flag) {
 						s[i][str] = "Flag " + ((Flag) boardEntity[i][str]).getID() + "";

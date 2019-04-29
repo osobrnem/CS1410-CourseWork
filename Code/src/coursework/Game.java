@@ -198,6 +198,7 @@ public class Game {
 			}
 			playerOrder.offerLast(playerOrder.poll());
 			activateBoard();
+			GameView.setBoard();
 		}
 		for (int e = 0; e < numberOfPlayers; e++) {
 			allPlayerMoves[e].clear();

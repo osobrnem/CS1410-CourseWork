@@ -40,10 +40,10 @@ public class BoardController {
 
 	@FXML
 	public void submitButton() throws Exception {
-		if (!(FileInput.getText().equals(null)) && Integer.parseInt(NumberInput.getText()) <= 4
+		if (!(FileInput.getText().equals("")) && Integer.parseInt(NumberInput.getText()) <= 4
 				&& Integer.parseInt(NumberInput.getText()) > 0) {
-			 GameSetup.setBoardLocation(FileInput.getText());
-			//GameSetup.setBoardLocation("D:\\Desktop\\boards\\massive.brd");
+			 //GameSetup.setBoardLocation(FileInput.getText());
+			GameSetup.setBoardLocation("D:\\Desktop\\boards\\massive.brd");
 			GameSetup.setNumberOfPlayers(Integer.parseInt(NumberInput.getText()));
 			FileInput.getScene().getWindow().hide();
 		}
