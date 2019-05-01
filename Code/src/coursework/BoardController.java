@@ -6,6 +6,8 @@ package coursework;
  */
 
 import javafx.fxml.FXML;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
 public class BoardController {
@@ -14,6 +16,8 @@ public class BoardController {
 	private TextField FileInput;
 	@FXML
 	private TextField NumberInput;
+	@FXML
+	private MenuButton boardMenu;
 
 	/**
 	 * Set the text area as not editable
@@ -42,13 +46,32 @@ public class BoardController {
 	public void submitButton() throws Exception {
 		if (!(FileInput.getText().equals("")) && Integer.parseInt(NumberInput.getText()) <= 4
 				&& Integer.parseInt(NumberInput.getText()) > 0) {
-			 //GameSetup.setBoardLocation(FileInput.getText());
-			GameSetup.setBoardLocation("D:\\Desktop\\boards\\massive.brd");
+			GameSetup.setBoardLocation(FileInput.getText());
 			GameSetup.setNumberOfPlayers(Integer.parseInt(NumberInput.getText()));
 			FileInput.getScene().getWindow().hide();
 		}
 	}
 
 	/************************************************************************************/
+
+	@FXML
+	public void menuBig() {
+		FileInput.setText("/coursework//boards//big.brd");
+	}
+
+	@FXML
+	public void menuMassive() {
+		FileInput.setText("/coursework//boards//Massive.brd");
+	}
+
+	@FXML
+	public void menuSmall() {
+		FileInput.setText("/coursework//boards//small.brd");
+	}
+
+	@FXML
+	public void menuImpossible() {
+		FileInput.setText("/coursework//boards//impossible.brd");
+	}
 
 }

@@ -82,7 +82,6 @@ public class GameView {
 		doNothingButton.setText("Do Nothing");
 		removeButton.setText("Remove Last Move");
 
-
 		hButtons.setSpacing(5);
 		hButtons.setMaxWidth(Double.MAX_VALUE);
 		hButtons.setPadding(new Insets(15));
@@ -110,6 +109,7 @@ public class GameView {
 	}
 
 	public static void setBoard() {
+
 		hBoard.getChildren().clear();
 		vMain.getChildren().clear();
 		gridPane.getChildren().clear();
@@ -120,6 +120,7 @@ public class GameView {
 		vMain.getChildren().addAll(hBoard, hButtons);
 
 		boardView.show();
+
 	}
 
 	private static GridPane getGrid() {
@@ -241,4 +242,9 @@ public class GameView {
 			robotStats.setText(g.getRobotDetailstoString());
 		}
 	};
+
+	public static void close() {
+		vMain.getScene().getWindow().hide();
+	}
+
 }
