@@ -129,7 +129,7 @@ public class Board {
 				if (playerLocations[i][str] == null && boardEntity[i][str] == null) {
 					s[i][str] = "";
 				} else {
-					if (playerLocations[i][str] != null && playerLocations[i][str].getIsAlive()) {
+					if (playerLocations[i][str] != null && playerLocations[i][str].getIsAlive() == true) {
 						s[i][str] = "" + playerLocations[i][str].getID() + "";
 					} else if (boardEntity[i][str] instanceof Flag) {
 						s[i][str] = "Flag " + ((Flag) boardEntity[i][str]).getID() + "";
@@ -344,7 +344,7 @@ public class Board {
 				return true;
 			}
 		} else if (d.equals("West")) {
-			if (c + 1 < col - 1) {
+			if (c + 1 > col - 1) {
 				return true;
 			}
 		}
@@ -407,12 +407,16 @@ public class Board {
 		// Try positions NESW
 		else if (checkPlayerEmpty(r.getStartingRow() - 1, r.getStartingCol())) {
 			r.setLocation(r.getStartingRow() - 1, r.getStartingCol());
+			setPlayerLocation(r.getStartingRow() - 1, r.getStartingCol(), r);
 		} else if (checkPlayerEmpty(r.getStartingRow(), r.getStartingCol() + 1)) {
 			r.setLocation(r.getStartingRow(), r.getStartingCol() + 1);
+			setPlayerLocation(r.getStartingRow(), r.getStartingCol() + 1, r);
 		} else if (checkPlayerEmpty(r.getStartingRow() + 1, r.getStartingCol())) {
 			r.setLocation(r.getStartingRow() + 1, r.getStartingCol());
+			setPlayerLocation(r.getStartingRow() + 1, r.getStartingCol(), r);
 		} else {
 			r.setLocation(r.getStartingRow(), r.getStartingCol() - 1);
+			setPlayerLocation(r.getStartingRow(), r.getStartingCol() - 1, r);
 		}
 
 	}

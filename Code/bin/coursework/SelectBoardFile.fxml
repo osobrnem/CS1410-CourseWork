@@ -8,6 +8,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <HBox />
       <HBox alignment="CENTER">
          <children>
             <Label text="Board File: ">
@@ -29,6 +30,17 @@
       </HBox>
       <HBox alignment="CENTER">
          <children>
+            <MenuButton fx:id="boardMenu" mnemonicParsing="false" text="Local boards">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#menuBig" text="Big" />
+                <MenuItem mnemonicParsing="false" onAction="#menuMassive" text="Massive" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuSmall" text="Small" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuImpossible" text="Impossible" />
+              </items>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </MenuButton>
             <Label text="Number of players (Max 4): ">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" top="5.0" />
