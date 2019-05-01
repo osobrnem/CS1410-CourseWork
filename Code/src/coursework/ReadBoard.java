@@ -1,5 +1,7 @@
 package coursework;
 
+import java.io.BufferedReader;
+
 /**
  * @author Matthew Osborne
  *
@@ -8,7 +10,6 @@ package coursework;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 import coursework.model.Entity;
 import coursework.model.Flag;
@@ -42,18 +43,19 @@ public class ReadBoard {
 	}
 
 	/**
-	 * @throws Exception **********************************************************************************/
-	
-	public Entity[][] getBoardEntity(String file) throws Exception{
+	 * @throws Exception
+	 **********************************************************************************/
+
+	public Entity[][] getBoardEntity(String file) throws Exception {
 		return generateBoardEntity(file);
 	}
-	
+
 	/************************************************************************************/
-	
-	public Entity[][] getBoardPlayer(String file) throws Exception{
+
+	public Entity[][] getBoardPlayer(String file) throws Exception {
 		return generateBoardPlayers(file);
 	}
-	
+
 	/************************************************************************************/
 
 	/**
@@ -77,6 +79,7 @@ public class ReadBoard {
 	public int getNumberOfColumns() {
 		return boardArray.get(1).length();
 	}
+
 	/************************************************************************************/
 
 	/**
@@ -103,7 +106,7 @@ public class ReadBoard {
 	 * @param fileName
 	 * @return fileType returns the type of file it is
 	 */
-	private void checkFileType(String fileName) {
+	protected void checkFileType(String fileName) {
 		String fileType = "";
 
 		int i = fileName.lastIndexOf('.');
@@ -134,12 +137,11 @@ public class ReadBoard {
 	private void generateArraylist(String boardFile) throws Exception {
 		ArrayList<String> Array = new ArrayList<>();
 
-		try (Scanner s = new Scanner(new FileReader(boardFile))) {
-			while (s.hasNext()) {
-				Array.add(s.nextLine());
-
+		try (FileReader fr = new FileReader(boardFile); BufferedReader br = new BufferedReader(fr)) {
+			String s;
+			while ((s = br.readLine()) != null) {
+				Array.add(s);
 			}
-		} catch (Exception e) {
 		}
 		Array.remove("format 1");
 

@@ -13,12 +13,11 @@ public class ReadBoardTest {
 
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception {
-
+		gb = new ReadBoard(1);
 	}
 
 	@Before
 	public void setUp() throws Exception {
-		gb = new ReadBoard();
 	}
 
 	/**

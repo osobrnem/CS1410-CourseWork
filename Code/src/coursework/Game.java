@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import coursework.model.Flag;
 import coursework.model.Gear;
 import coursework.model.Pit;
@@ -99,18 +100,20 @@ public class Game {
 	 *            Move
 	 */
 	private void moves(String m) {
-		if (m.equalsIgnoreCase("f")) {
-			move.forward(playerRobots.get(currentPlayer));
-		} else if (m.equalsIgnoreCase("b")) {
-			move.backward(playerRobots.get(currentPlayer));
-		} else if (m.equalsIgnoreCase("l")) {
-			Move.left(playerRobots.get(currentPlayer));
-		} else if (m.equalsIgnoreCase("r")) {
-			Move.right(playerRobots.get(currentPlayer));
-		} else if (m.equalsIgnoreCase("u")) {
-			move.uTurn(playerRobots.get(currentPlayer));
-		} else if (m.equalsIgnoreCase("w")) {
-			move.doNothing();
+		if (playerRobots.get(playerOrder.peek()).getIsAlive()) {
+			if (m.equalsIgnoreCase("f")) {
+				move.forward(playerRobots.get(playerOrder.peek()));
+			} else if (m.equalsIgnoreCase("b")) {
+				move.backward(playerRobots.get(playerOrder.peek()));
+			} else if (m.equalsIgnoreCase("l")) {
+				Move.left(playerRobots.get(playerOrder.peek()));
+			} else if (m.equalsIgnoreCase("r")) {
+				Move.right(playerRobots.get(playerOrder.peek()));
+			} else if (m.equalsIgnoreCase("u")) {
+				move.uTurn(playerRobots.get(playerOrder.peek()));
+			} else if (m.equalsIgnoreCase("w")) {
+				move.doNothing();
+			}
 		}
 	}
 
@@ -193,8 +196,9 @@ public class Game {
 			for (currentPlayer = 0; currentPlayer < numberOfPlayers; currentPlayer++) {
 				moves(allPlayerMoves[playerOrder.peek()].poll());
 				playerOrder.offerLast(playerOrder.poll());
-				GameView.setBoard();
-				delay();
+
+
+
 			}
 			playerOrder.offerLast(playerOrder.poll());
 			activateBoard();
@@ -243,6 +247,7 @@ public class Game {
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
+			System.exit(0);
 		}
 	}
 
@@ -284,16 +289,6 @@ public class Game {
 			}
 		}
 
-	}
-
-	/**********************************************************************************/
-
-	private void delay() {
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-		}
 	}
 
 }
