@@ -18,6 +18,10 @@ import coursework.model.Gear;
 import coursework.model.Pit;
 import coursework.model.Robot;
 
+/**
+ * @author Matthew Osborne
+ *
+ */
 public class ReadBoard {
 
 	private static ArrayList<String> boardArray;

@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author Akeel Saleem, Uzair Akhter, Muhammad Khan
+ * @author Muhammad Khan
  *
  */
 public class RobotTest {
@@ -22,11 +22,8 @@ public class RobotTest {
 	boolean isAlive;
 	boolean isDead;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp()  {
 
 		isDead = false;
 		isAlive = true;

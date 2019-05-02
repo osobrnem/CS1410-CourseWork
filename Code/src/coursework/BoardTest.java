@@ -8,6 +8,10 @@ import org.junit.Test;
 
 import coursework.model.Robot;
 
+/**
+ * @author Lewis Miller
+ *
+ */
 public class BoardTest {
 
 	@Before

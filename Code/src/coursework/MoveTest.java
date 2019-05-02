@@ -8,8 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * @autho
- *r Akeel Saleem, Uzair Akhter
+ * @author Akeel Saleem, Uzair Akhter
  */
 public class MoveTest {
 

@@ -3,6 +3,10 @@ package coursework;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
+/**
+ * @author Matthew Osborne
+ *
+ */
 public class playerIDController {
 
 	@FXML

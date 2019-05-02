@@ -6,6 +6,8 @@ import coursework.Move;
 
 /**
 *
+* Moves a player forward one place, unless it is in a corner where it rotates it clockwise.
+*
 * @author Matthew Osborne
 */
 
@@ -21,7 +23,7 @@ public class ConveyorBelt extends Entity {
 	 *
 	 * Sets the direction of the conveyor Belt
 	 *
-	 * @param direction
+	 * @param direction The direction the conveyor is facing
 	 */
 	public ConveyorBelt(String direction) {
 		this.direction = direction;

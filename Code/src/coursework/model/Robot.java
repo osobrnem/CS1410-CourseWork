@@ -2,11 +2,9 @@ package coursework.model;
 
 import java.util.ArrayList;
 
-import coursework.Board;
-
 /**
  *
- * @author Muhammad Khan (180196294) & Matthew Osborne (osbornem)
+ * @author Muhammad Khan (180196294) and Matthew Osborne (osbornem)
  * @version 18/04/2019
  */
 public class Robot extends Entity {
@@ -28,9 +26,9 @@ public class Robot extends Entity {
 	 * Also sets up ArrayList to store flags which have been collected
 	 * </p>
 	 *
-	 * @param id
-	 * @param startRow
-	 * @param startCol
+	 * @param id The name of the players Robot
+	 * @param startRow The row the robot starts at
+	 * @param startCol The column the robot starts at
 	 */
 	public Robot(char id, int startRow, int startCol) {
 		super();
@@ -113,6 +111,11 @@ public class Robot extends Entity {
 
 	/************************************************************************************/
 
+	/**
+	 * Add the flag to the array if it is not already collected
+	 *
+	 * @param f Flag
+	 */
 	public void collectFlag(Flag f) {
 		if (flags.contains(f.getID())) {
 			System.out.println("Flag already collected");

@@ -17,9 +17,5 @@ public class Flag extends Entity {
 	public int getID() {
 		return ID;
 	}
-	//Set the ID
-//	public static void setID(int iD) {
-//		ID = iD;
-//	}
 
 }
