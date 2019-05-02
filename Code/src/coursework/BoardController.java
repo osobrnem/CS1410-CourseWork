@@ -1,7 +1,7 @@
 package coursework;
 
 /**
- * @author Matthew
+ * @author Matthew Osborne
  *
  */
 

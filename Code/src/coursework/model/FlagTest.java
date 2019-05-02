@@ -12,6 +12,10 @@ import org.junit.Before;
 
 import org.junit.Test;
 
+/**
+ * @author Muhammad Khan
+ *
+ */
 public class FlagTest {
 
 	Flag f1;

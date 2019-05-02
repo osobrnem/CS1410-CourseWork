@@ -13,12 +13,10 @@ import coursework.model.Flag;
 import coursework.model.Gear;
 import coursework.model.Pit;
 import coursework.model.Robot;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
-import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -38,8 +36,6 @@ public class Game {
 
 	private int currentPlayer = 0;
 
-	@FXML
-	private Label playerWon;
 
 	/**
 	 *
@@ -264,7 +260,7 @@ public class Game {
 	 *
 	 * The game over function is checked to see if it is Null. If it isn't null,
 	 * meaning the game has been won, it opens a new GUI scene saying "Game
-	 * Over" and the player who has won. The player details is updated to the player who has won. Closing
+	 * Over". The player details is updated to the player who has won. Closing
 	 * this scene closes the entire game.
 	 * </p>
 	 *
@@ -308,7 +304,6 @@ public class Game {
 
 			final FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("GameOver.fxml"));
-			//playerWon.setText(playerRobots.get(currentPlayer).getID() + " WINS");
 			try {
 				final Parent parent = (Parent) loader.load();
 
