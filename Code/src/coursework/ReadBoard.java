@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import coursework.model.ConveyorBelt;
 import coursework.model.Entity;
 import coursework.model.Flag;
 import coursework.model.Gear;
@@ -19,7 +20,6 @@ import coursework.model.Robot;
 
 public class ReadBoard {
 
-	private static String[][] boardString;
 	private static ArrayList<String> boardArray;
 	private ArrayList<Robot> playerRobots;
 
@@ -46,11 +46,28 @@ public class ReadBoard {
 	 * @throws Exception
 	 **********************************************************************************/
 
+	/**
+	 *
+	 * Returns the board of Entity's without players
+	 *
+	 * @param file
+	 * @return Entity[][]
+	 * @throws Exception
+	 */
 	public Entity[][] getBoardEntity(String file) throws Exception {
 		return generateBoardEntity(file);
 	}
 
 	/************************************************************************************/
+
+	/**
+	 *
+	 * Returns the board of Entity's with only players
+	 *
+	 * @param file
+	 * @return Entity[][] (Robot)
+	 * @throws Exception
+	 */
 
 	public Entity[][] getBoardPlayer(String file) throws Exception {
 		return generateBoardPlayers(file);
@@ -91,9 +108,7 @@ public class ReadBoard {
 	 * @throws Exception
 	 */
 	private Entity[][] generateBoardEntity(String boardFile) throws Exception {
-
 		checkFileType(boardFile);
-
 		generateArraylist(boardFile);
 		return arrayToBoardEntityArray(boardArray);
 	}
@@ -148,30 +163,6 @@ public class ReadBoard {
 		checkColAndRowNumbers(Array);
 
 		boardArray = Array;
-	}
-
-	/************************************************************************************/
-
-	/**
-	 *
-	 * Print the ArrayList
-	 *
-	 * <p>
-	 * Print the output of the ArrayList to console. This should match what is
-	 * in the .BRD file except it should not have the format 1
-	 * </p>
-	 *
-	 *
-	 */
-	private void printArrayList() {
-
-		for (int i = 0; i < boardArray.size(); i++) {
-			for (int str = 0; str < boardArray.get(i).length(); str++) {
-				System.out.print(boardArray.get(i).charAt(str));
-			}
-			System.out.println("");
-		}
-
 	}
 
 	/************************************************************************************/
@@ -235,6 +226,14 @@ public class ReadBoard {
 					boardEntity[i][str] = new Gear("clockwise");
 				} else if ("-".equalsIgnoreCase(Character.toString(boardArray.get(i).charAt(str)))) {
 					boardEntity[i][str] = new Gear("anticlockwise");
+				} else if ("^".equalsIgnoreCase(Character.toString(boardArray.get(i).charAt(str)))) {
+					boardEntity[i][str] = new ConveyorBelt("North");
+				} else if ("<".equalsIgnoreCase(Character.toString(boardArray.get(i).charAt(str)))) {
+					boardEntity[i][str] = new ConveyorBelt("West");
+				} else if (">".equalsIgnoreCase(Character.toString(boardArray.get(i).charAt(str)))) {
+					boardEntity[i][str] = new ConveyorBelt("East");
+				} else if ("v".equalsIgnoreCase(Character.toString(boardArray.get(i).charAt(str)))) {
+					boardEntity[i][str] = new ConveyorBelt("South");
 				} else {
 					throw new IllegalArgumentException("BOARD HAS INVALID CHARACTER");
 				}

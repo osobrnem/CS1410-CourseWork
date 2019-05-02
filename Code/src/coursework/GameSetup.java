@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Control;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -46,14 +47,14 @@ public class GameSetup {
 
 			final Stage BoardStage = new Stage();
 			BoardStage.initModality(Modality.APPLICATION_MODAL);
-			BoardStage.setScene(new Scene(parent, 500, 100));
+			BoardStage.setScene(new Scene(parent, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
 			BoardStage.showAndWait();
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 
-		g = new Game(file, this, playerNumber);
+		g = new Game(file, playerNumber);
 
 		final FXMLLoader loader1 = new FXMLLoader();
 		loader1.setLocation(getClass().getResource("SetPlayerID.fxml"));
@@ -64,7 +65,7 @@ public class GameSetup {
 
 			final Stage IDStage = new Stage();
 			IDStage.initModality(Modality.APPLICATION_MODAL);
-			IDStage.setScene(new Scene(parent, 500, 300));
+			IDStage.setScene(new Scene(parent, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
 			IDStage.showAndWait();
 
 		} catch (IOException ex) {
@@ -96,7 +97,7 @@ public class GameSetup {
 	/**
 	 * @return playerIDs
 	 */
-	public String[] getPlayerID() {
+	public static String[] getPlayerID() {
 		return playerIDs;
 	}
 

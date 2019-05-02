@@ -2,6 +2,8 @@ package main;
 
 
 
+import coursework.GameView;
+
 /**
  * @author Matthew Osborne
  *
