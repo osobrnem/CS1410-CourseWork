@@ -19,7 +19,6 @@ public class Robot extends Entity {
 	private String direction;
 	private ArrayList<Integer> flags;
 
-	private Board br;
 
 	/**
 	 *
@@ -93,9 +92,6 @@ public class Robot extends Entity {
 		return direction;
 	}
 
-	public void setBoard(Board br) {
-		this.br = br;
-	}
 
 	public String getID() {
 		return ID;
@@ -114,31 +110,6 @@ public class Robot extends Entity {
 		return "" + flags;
 	}
 
-	/************************************************************************************/
-
-	private void respawn() {
-		// if dead move back to starting position
-		// if thats occupied check NESW systematically then move there
-		// test is robot is dead
-		if (isAlive == false) {
-			// If original starting position is occupied
-			if (br.checkPlayerEmpty(startingRow, startingCol)) {
-				setLocation(startingRow, startingCol);
-				br.setPlayerLocation(startingRow, startingCol, this);
-			}
-			// Try positions NESW
-			else if (br.checkPlayerEmpty(startingRow - 1, startingCol)) {
-				setLocation(startingRow - 1, startingCol);
-			} else if (br.checkPlayerEmpty(startingRow, startingCol + 1)) {
-				setLocation(startingRow, startingCol + 1);
-			} else if (br.checkPlayerEmpty(startingRow + 1, startingCol)) {
-				setLocation(startingRow + 1, startingCol);
-			} else {
-				setLocation(startingRow, startingCol - 1);
-			}
-
-		}
-	}
 
 	/************************************************************************************/
 

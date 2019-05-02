@@ -5,14 +5,14 @@ import coursework.model.Robot;
 
 /**
 *
-* @author Lewis Miller & Matthew Osborne (osbornem)
+* @author Lewis Miller & Matthew Osborne
 * @version 18/04/2019
 */
 
 
 public class Move {
 
-	private Board br;
+	private static Board br;
 
 	/**
 	 *
@@ -20,8 +20,8 @@ public class Move {
 	 *
 	 * @param br
 	 */
-	public Move(Board br) {
-		this.br = br;
+	public Move(Board board) {
+		br = board;
 	}
 
 	// MOVES
@@ -36,19 +36,20 @@ public class Move {
 	 *
 	 *
 	 * @param r
+	 * @return
 	 */
 
-	public void forward(Robot r) {
+	public static void forward(Robot r) {
 
 		int row = r.getRow();
 		int col = r.getCol();
 		String direction = r.getDirection();
 
-		if (br.checkOutsideBoardForward(row, col, direction) == true) {
+		if (Board.checkOutsideBoardForward(row, col, direction) == true) {
 			r.setDead();
 			br.setPlayerLocation(row, col, null);
 		}
-		else if (br.checkAdjacentSpaceForward(row, col, direction) == null) {
+		else if (Board.checkAdjacentSpaceForward(row, col, direction) == null) {
 			if (direction.equals("North")) {
 				r.setRow(row - 1);
 				br.setPlayerLocation(row, col, null);
@@ -67,7 +68,7 @@ public class Move {
 				br.setPlayerLocation(row, col - 1, r);
 			}
 		} else {
-			Robot robotPush = (Robot) br.checkAdjacentSpaceForward(row, col, direction);
+			Robot robotPush = (Robot) Board.checkAdjacentSpaceForward(row, col, direction);
 			pushRobotForward(r, robotPush);
 		}
 	}
@@ -86,7 +87,7 @@ public class Move {
 	 * @param r
 	 */
 
-	public void backward(Robot r) {
+	public static void backward(Robot r) {
 
 		int row = r.getRow();
 		int col = r.getCol();
@@ -96,7 +97,7 @@ public class Move {
 			r.setDead();
 			br.setPlayerLocation(row, col, null);
 		}
-		else if (br.checkAdjacentSpaceBackward(row, col, direction) == null) {
+		else if (Board.checkAdjacentSpaceBackward(row, col, direction) == null) {
 			if (direction.equals("North")) {
 				r.setRow(row + 1);
 				br.setPlayerLocation(row, col, null);
@@ -115,7 +116,7 @@ public class Move {
 				br.setPlayerLocation(row, col + 1, r);
 			}
 		} else {
-			Robot robotPush = (Robot) br.checkAdjacentSpaceBackward(row, col, direction);
+			Robot robotPush = (Robot) Board.checkAdjacentSpaceBackward(row, col, direction);
 			pushRobotBackward(r, robotPush);
 		}
 	}
@@ -133,7 +134,7 @@ public class Move {
 	 * @param robot
 	 */
 
-	public void pushRobotForward(Robot r, Robot robotPush) {
+	public static void pushRobotForward(Robot r, Robot robotPush) {
 		if (r.getDirection().equals("South") && robotPush.getDirection().equals("North")) {
 			backward(robotPush);
 			forward(r);
@@ -180,7 +181,7 @@ public class Move {
 	 * @param robot
 	 */
 
-	public void pushRobotBackward(Robot r, Robot robotPush) {
+	public static void pushRobotBackward(Robot r, Robot robotPush) {
 		if (r.getDirection().equals("South") && robotPush.getDirection().equals("North")) {
 			forward(robotPush);
 			backward(r);
@@ -272,7 +273,7 @@ public class Move {
 	 * @param r
 	 */
 
-	public void uTurn(Robot r) {
+	public static void uTurn(Robot r) {
 		String direction = r.getDirection();
 
 		if (direction.equals("North")) {
@@ -292,6 +293,6 @@ public class Move {
 	 * Does nothing
 	 */
 
-	public void doNothing() {
+	public static void doNothing() {
 	}
 }

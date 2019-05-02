@@ -6,18 +6,13 @@ import org.junit.Test;
 
 public class ReadBoardTest {
 
-	private ReadBoard gb;
+	private ReadBoard rb;
 	private String fileTypeWrong = "TEST.txt";
 	private String fileTypeCorrect = "TEST.BRD";
 
-
-	@BeforeClass
-	public void setUpBeforeClass() throws Exception {
-		gb = new ReadBoard(1);
-	}
-
 	@Before
 	public void setUp() throws Exception {
+		rb = new ReadBoard(1);
 	}
 
 	/**
@@ -28,7 +23,7 @@ public class ReadBoardTest {
 	 */
 	@Test(expected=IllegalArgumentException.class)
 	public void testWrongFileType() throws Exception {
-		gb.checkFileType(fileTypeWrong);
+		rb.checkFileType(fileTypeWrong);
 	}
 
 	/**
@@ -39,7 +34,7 @@ public class ReadBoardTest {
 	 */
 	@Test(expected=Test.None.class)
 	public void testCorrectFileType() throws Exception {
-		gb.checkFileType(fileTypeCorrect);
+		rb.checkFileType(fileTypeCorrect);
 	}
 
 

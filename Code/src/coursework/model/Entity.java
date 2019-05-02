@@ -35,16 +35,4 @@ public abstract class Entity {
 		return col;
 	}
 
-	public boolean sameLocation(Entity entity) {
-		int entityCol = entity.getCol();
-		int entityRow = entity.getRow();
-		if(entityCol == col && entityRow == row) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-
 }

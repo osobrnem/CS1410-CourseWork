@@ -8,16 +8,19 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import coursework.model.ConveyorBelt;
 import coursework.model.Flag;
 import coursework.model.Gear;
 import coursework.model.Pit;
 import coursework.model.Robot;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.GameView;
 
 /**
  * @author Matthew Osborne
@@ -32,11 +35,11 @@ public class Game {
 	private ArrayDeque<String>[] allPlayerMoves;
 	private ArrayDeque<Integer> playerOrder;
 	private String lastMove = "";
-	private GameSetup gs;
 
 	private int currentPlayer = 0;
 
-	private Move move;
+	@FXML
+	private Label playerWon;
 
 	/**
 	 *
@@ -51,18 +54,17 @@ public class Game {
 	 * @param file
 	 *            Board file
 	 * @param gs
-	 *            GameController
+	 *            GameSetup
 	 * @param playerNumber
 	 *            Number of players in the game
 	 * @throws Exception
 	 */
-	public Game(String file, GameSetup gs, int playerNumber) throws Exception {
+	@SuppressWarnings("unchecked")
+	public Game(String file, int playerNumber) throws Exception {
 		board = new Board(file, playerNumber);
 		playerRobots = board.getPlayerRobots();
-		passBoard();
-		move = new Move(board);
+		new Move(board);
 
-		this.gs = gs;
 		numberOfPlayers = playerNumber;
 
 		allPlayerMoves = new ArrayDeque[numberOfPlayers];
@@ -78,16 +80,15 @@ public class Game {
 
 	/**********************************************************************************/
 
+	/**
+	 *
+	 * Sets the number of players playing on the board
+	 *
+	 * @param NOP
+	 *            Number of players
+	 */
 	public void setNumberOfPlayers(int NOP) {
 		numberOfPlayers = NOP;
-	}
-
-	/**********************************************************************************/
-
-	private void passBoard() {
-		for (int i = 0; i < numberOfPlayers; i++) {
-			playerRobots.get(i).setBoard(board);
-		}
 	}
 
 	/**********************************************************************************/
@@ -96,23 +97,32 @@ public class Game {
 	 *
 	 * Takes a movement and executes it
 	 *
+	 * <p>
+	 * Receives a movement through an instance variable and does the
+	 * corresponding move
+	 *
+	 * F = Forward B = Backward L = Left R = Right U = U-Turn W = Do nothing
+	 *
+	 *
+	 * </p>
+	 *
 	 * @param m
 	 *            Move
 	 */
 	private void moves(String m) {
 		if (playerRobots.get(playerOrder.peek()).getIsAlive()) {
 			if (m.equalsIgnoreCase("f")) {
-				move.forward(playerRobots.get(playerOrder.peek()));
+				Move.forward(playerRobots.get(playerOrder.peek()));
 			} else if (m.equalsIgnoreCase("b")) {
-				move.backward(playerRobots.get(playerOrder.peek()));
+				Move.backward(playerRobots.get(playerOrder.peek()));
 			} else if (m.equalsIgnoreCase("l")) {
 				Move.left(playerRobots.get(playerOrder.peek()));
 			} else if (m.equalsIgnoreCase("r")) {
 				Move.right(playerRobots.get(playerOrder.peek()));
 			} else if (m.equalsIgnoreCase("u")) {
-				move.uTurn(playerRobots.get(playerOrder.peek()));
+				Move.uTurn(playerRobots.get(playerOrder.peek()));
 			} else if (m.equalsIgnoreCase("w")) {
-				move.doNothing();
+				Move.doNothing();
 			}
 		}
 	}
@@ -122,6 +132,11 @@ public class Game {
 	/**
 	 *
 	 * Turns the robots details into a string
+	 *
+	 * <p>
+	 * Used to print the robots details to the GUI. The results printed are
+	 * needed for players to get details robot.
+	 * </p>
 	 *
 	 * @return String
 	 */
@@ -141,17 +156,19 @@ public class Game {
 	 *
 	 * Sets the robot's ID for the given player
 	 *
+	 * ID taken from user input on GameSetup
+	 *
 	 */
 	public void setPlayerID() {
 		for (int i = 0; i < numberOfPlayers; i++)
 			if (playerRobots.get(i).getID().equalsIgnoreCase("A")) {
-				playerRobots.get(i).setID(gs.getPlayerID()[0]);
+				playerRobots.get(i).setID(GameSetup.getPlayerID()[0]);
 			} else if (playerRobots.get(i).getID().equalsIgnoreCase("B")) {
-				playerRobots.get(i).setID(gs.getPlayerID()[1]);
+				playerRobots.get(i).setID(GameSetup.getPlayerID()[1]);
 			} else if (playerRobots.get(i).getID().equalsIgnoreCase("C")) {
-				playerRobots.get(i).setID(gs.getPlayerID()[2]);
+				playerRobots.get(i).setID(GameSetup.getPlayerID()[2]);
 			} else if (playerRobots.get(i).getID().equalsIgnoreCase("D")) {
-				playerRobots.get(i).setID(gs.getPlayerID()[3]);
+				playerRobots.get(i).setID(GameSetup.getPlayerID()[3]);
 			}
 
 	}
@@ -190,16 +207,24 @@ public class Game {
 
 	/**
 	 * Calls the function to execute the move at the front of the ArrayDeque
+	 *
+	 * <p>
+	 * Goes through each player and then changes who the first player is by one.
+	 * Does all 5 moves. Respawns any robots if they went off the board or into
+	 * a pit during moving.
+	 * </p>
 	 */
 	private void excecuteMoves() {
 		for (int m = 0; m < 5; m++) {
 			for (currentPlayer = 0; currentPlayer < numberOfPlayers; currentPlayer++) {
+				// Execute the first move of each robot staring with player one
 				moves(allPlayerMoves[playerOrder.peek()].poll());
+				// Set the first player to last so it does through the list
 				playerOrder.offerLast(playerOrder.poll());
 
-
-
 			}
+			// Set the next player as the first player (player one goes to the
+			// back on the first run)
 			playerOrder.offerLast(playerOrder.poll());
 			activateBoard();
 			GameView.setBoard();
@@ -207,42 +232,90 @@ public class Game {
 		for (int e = 0; e < numberOfPlayers; e++) {
 			allPlayerMoves[e].clear();
 		}
+		for (int i = 0; i < numberOfPlayers; i++) {
+			if (!(playerRobots.get(i).getIsAlive())) {
+				board.respawnRobotsToBoard(playerRobots.get(i));
+				playerRobots.get(i).setAlive();
+				GameView.setBoard();
+			}
+		}
 		currentPlayer = 0;
 		lastMove = "";
-		checkGameOver();
 	}
 
 	/**********************************************************************************/
 
+	/**
+	 *
+	 * Check if the robot is in the same space as an entity and check if it has
+	 * won.
+	 *
+	 * <p>
+	 * Used when the board is activated. A robot is passed from
+	 * {@link activateBoard()}. When the robot is checked it is tested against
+	 * each possible Entity type it could be on. If it is on an Entity it calls
+	 * the corresponding function.
+	 *
+	 * If the player Robot is on a Flag type Entity it will check what Flags
+	 * have already been collected. Since a player needs to collect Flags in
+	 * ascending order. It will only allow a Flag to be collected if the
+	 * required Flags have been collected, it does this by checking the Flag
+	 * array in the Robot class.
+	 *
+	 * The game over function is checked to see if it is Null. If it isn't null,
+	 * meaning the game has been won, it opens a new GUI scene saying "Game
+	 * Over" and the player who has won. The player details is updated to the player who has won. Closing
+	 * this scene closes the entire game.
+	 * </p>
+	 *
+	 * @param r
+	 *            Robot
+	 */
 	private void checkRobot(Robot r) {
-		for (int i = 0; i < numberOfPlayers; i++) {
-			if (board.sameEntityLocation(r) instanceof Flag) {
-				r.collectFlag((Flag) board.sameEntityLocation(r));
-			}
-			if (board.sameEntityLocation(r) instanceof Pit) {
-				r.setDead();
-				board.removeRobotFromBoard(r);
-			}
-			if (board.sameEntityLocation(r) instanceof Gear) {
-				((Gear) board.sameEntityLocation(r)).act(r);
-			}
-
-			if (r.getIsAlive() == false) {
-				board.respawnRobotsToBoard(r);
-				r.setAlive();
+		if (board.sameEntityLocation(r) instanceof Flag) {
+			if (!r.getFlags().contains(1)) {
+				if (((Flag) board.sameEntityLocation(r)).getID() == 1) {
+					r.collectFlag((Flag) board.sameEntityLocation(r));
+				}
+			} else if (!r.getFlags().contains("2")) {
+				if (((Flag) board.sameEntityLocation(r)).getID() == 2) {
+					r.collectFlag((Flag) board.sameEntityLocation(r));
+				}
+			} else if (!r.getFlags().contains("3")) {
+				if (((Flag) board.sameEntityLocation(r)).getID() == 3) {
+					r.collectFlag((Flag) board.sameEntityLocation(r));
+				}
+			} else if (!r.getFlags().contains("4")) {
+				if (((Flag) board.sameEntityLocation(r)).getID() == 4) {
+					r.collectFlag((Flag) board.sameEntityLocation(r));
+				}
 			}
 		}
-		if (checkGameOver() == true) {
+		if (board.sameEntityLocation(r) instanceof Pit) {
+			r.setDead();
+			board.removeRobotFromBoard(r);
+		}
+		if (board.sameEntityLocation(r) instanceof Gear) {
+			((Gear) board.sameEntityLocation(r)).act(r);
+		}
+		if (board.sameEntityLocation(r) instanceof ConveyorBelt) {
+			((ConveyorBelt) board.sameEntityLocation(r)).moveRobot(r);
+		}
+		if (checkGameOver() != null) {
+
+			currentPlayer = playerRobots.indexOf(checkGameOver());
+			GameView.updatePlayerStats();
 
 			final FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("GameOver.fxml"));
+			//playerWon.setText(playerRobots.get(currentPlayer).getID() + " WINS");
 			try {
 				final Parent parent = (Parent) loader.load();
 
-				final Stage GameOver = new Stage();
-				GameOver.initModality(Modality.APPLICATION_MODAL);
-				GameOver.setScene(new Scene(parent, 500, 100));
-				GameOver.showAndWait();
+				final Stage gameOver = new Stage();
+				gameOver.initModality(Modality.APPLICATION_MODAL);
+				gameOver.setScene(new Scene(parent, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
+				gameOver.showAndWait();
 
 			} catch (IOException ex) {
 				ex.printStackTrace();
@@ -265,20 +338,36 @@ public class Game {
 
 	/**********************************************************************************/
 
-	private Boolean checkGameOver() {
+	/**
+	 *
+	 * Tests each player Robot to see if it has collected all the Flags
+	 *
+	 * @return r Robot
+	 */
+	private Robot checkGameOver() {
 		int test = board.getNumberOfFlags();
 		for (Robot r : playerRobots) {
 			if (!(r == null)) {
 				if (r.getFlags().size() == test) {
-					return true;
+					return r;
 				}
 			}
 		}
-		return false;
+		return null;
 	}
 
 	/**********************************************************************************/
 
+	/**
+	 *
+	 * Activates the board
+	 *
+	 * <p>
+	 * Goes through the board and checks each robot from top left to bottom
+	 * right.
+	 * </p>
+	 *
+	 */
 	private void activateBoard() {
 		for (int i = 0; i < Board.getRow(); i++) {
 			for (int str = 0; str < Board.getCol(); str++) {

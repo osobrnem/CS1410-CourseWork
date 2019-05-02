@@ -2,6 +2,7 @@ package coursework;
 
 import java.util.ArrayList;
 
+import coursework.model.ConveyorBelt;
 import coursework.model.Entity;
 import coursework.model.Flag;
 import coursework.model.Gear;
@@ -28,8 +29,6 @@ public class Board {
 		return col;
 	}
 
-
-
 	private static int row;
 	private static int col;
 
@@ -37,9 +36,10 @@ public class Board {
 	 * Gets a board
 	 *
 	 * <p>
-	 * Generates a new ReadAndGenerateBoard class and sends it the board file.
-	 * The board entity array is then returned and set as the board. The board
-	 * is also created as a string array
+	 * Generates a new ReadBoard class and sends it the board file.
+	 * The board entity array is then returned and set as the board.
+	 * The board player array is used to keep the positions of the Robots on the board.
+	 * The rows and columns are set using the size of the board.
 	 * </p>
 	 *
 	 * @param file
@@ -69,7 +69,7 @@ public class Board {
 
 	/**
 	 *
-	 * Returns the player robots from the ReadAndGenerateBoard class
+	 * Returns the player Robots from the ReadBoard class
 	 *
 	 * @return br.getPlayerRobots()
 	 */
@@ -80,6 +80,11 @@ public class Board {
 	/**
 	 *
 	 * Used to set Robots in the player array
+	 *
+	 * <p>
+	 * Mainly used when moving robots.
+	 * Allows Robots to be added or removed from the array at a specified point.
+	 * </p>
 	 *
 	 * @param r
 	 *            Row
@@ -92,31 +97,11 @@ public class Board {
 		playerLocations[r][c] = value;
 	}
 
-
 	/************************************************************************************/
 
 	/**
-	 * Prints the player board to console
-	 */
-
-	public void printPlayerBoard() {
-		for (int i = 0; i < row; i++) {
-			for (int str = 0; str < col; str++) {
-				if (playerLocations[i][str] == null) {
-					System.out.print("|Empty|");
-				} else {
-					System.out.print("|ROBOT|");
-				}
-			}
-			System.out.println("");
-		}
-		System.out.println("");
-	}
-
-	/************************************************************************************/
-
-	/**
-	 * Turns the dual Entity array into a duel string array so it can added to the board
+	 * Turns the dual Entity array into a duel string array so it can added to
+	 * the board
 	 *
 	 * @return String version of the array
 	 */
@@ -141,6 +126,16 @@ public class Board {
 						} else if (((Gear) boardEntity[i][str]).getRotation().equals("anticlockwise")) {
 							s[i][str] = "Gear -";
 						}
+					} else if (boardEntity[i][str] instanceof ConveyorBelt) {
+						if (((ConveyorBelt) boardEntity[i][str]).getDirection().equals("North")) {
+							s[i][str] = "^^^";
+						} else if (((ConveyorBelt) boardEntity[i][str]).getDirection().equals("East")) {
+							s[i][str] = ">>>";
+						} else if (((ConveyorBelt) boardEntity[i][str]).getDirection().equals("South")) {
+							s[i][str] = "vvv";
+						} else if (((ConveyorBelt) boardEntity[i][str]).getDirection().equals("West")) {
+							s[i][str] = "<<<";
+						}
 					}
 				}
 			}
@@ -157,7 +152,6 @@ public class Board {
 	 *
 	 * @return board array
 	 */
-
 
 	public Entity[][] getBoardEntity() {
 		return boardEntity;
@@ -197,7 +191,7 @@ public class Board {
 	 * @return Robot or null
 	 */
 
-	public Entity checkAdjacentSpaceForward(int r, int c, String d) {
+	public static Entity checkAdjacentSpaceForward(int r, int c, String d) {
 		if (d.equals("North")) {
 			if (!(playerLocations[r - 1][c] == null)) {
 				return playerLocations[r - 1][c];
@@ -244,7 +238,7 @@ public class Board {
 	 * @return Robot or null
 	 */
 
-	public Entity checkAdjacentSpaceBackward(int r, int c, String d) {
+	public static Entity checkAdjacentSpaceBackward(int r, int c, String d) {
 		if (d.equals("North")) {
 			if (!(playerLocations[r + 1][c] == null)) {
 				return playerLocations[r + 1][c];
@@ -288,7 +282,7 @@ public class Board {
 	 * @return true or false
 	 */
 
-	public Boolean checkOutsideBoardForward(int r, int c, String d) {
+	public static Boolean checkOutsideBoardForward(int r, int c, String d) {
 		if (d.equals("North")) {
 			if (r - 1 < 0) {
 				return true;
@@ -362,18 +356,12 @@ public class Board {
 	 *            Row
 	 * @param c
 	 *            Column
-	 * @return Flag or null
+	 * @return Entity or null
 	 */
 
 	public Entity sameEntityLocation(Robot r) {
-		if (boardEntity[r.getRow()][r.getCol()] instanceof Flag) {
-			return (Flag) boardEntity[r.getRow()][r.getCol()];
-		}
-		if (boardEntity[r.getRow()][r.getCol()] instanceof Pit) {
-			return (Pit) boardEntity[r.getRow()][r.getCol()];
-		}
-		if (boardEntity[r.getRow()][r.getCol()] instanceof Gear) {
-			return (Gear) boardEntity[r.getRow()][r.getCol()];
+		if (boardEntity[r.getRow()][r.getCol()] != null) {
+			return boardEntity[r.getRow()][r.getCol()];
 		}
 		return null;
 	}
