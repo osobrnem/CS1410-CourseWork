@@ -21,6 +21,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
+ *
+ * Handles most of the operations for the Game.
+ *
  * @author Matthew Osborne
  *
  */
@@ -73,6 +76,25 @@ public class Game {
 		}
 
 	}
+
+	/**********************************************************************************/
+
+	public ArrayDeque<String>[] getAllPlayerMoves() {
+		return allPlayerMoves;
+	}
+
+	/**********************************************************************************/
+
+	public ArrayDeque<Integer> getPlayerOrder() {
+		return playerOrder;
+	}
+
+	/**********************************************************************************/
+
+	public ArrayList<Robot> getPlayerRobots() {
+		return playerRobots;
+	}
+
 
 	/**********************************************************************************/
 
@@ -267,7 +289,7 @@ public class Game {
 	 * @param r
 	 *            Robot
 	 */
-	private void checkRobot(Robot r) {
+	protected void checkRobot(Robot r) {
 		if (board.sameEntityLocation(r) instanceof Flag) {
 			if (!r.getFlags().contains(1)) {
 				if (((Flag) board.sameEntityLocation(r)).getID() == 1) {
@@ -289,7 +311,7 @@ public class Game {
 		}
 		if (board.sameEntityLocation(r) instanceof Pit) {
 			r.setDead();
-			board.removeRobotFromBoard(r);
+			Board.removeRobotFromBoard(r);
 		}
 		if (board.sameEntityLocation(r) instanceof Gear) {
 			((Gear) board.sameEntityLocation(r)).act(r);

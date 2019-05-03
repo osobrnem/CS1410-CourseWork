@@ -2,6 +2,9 @@ package coursework.model;
 
 
 /**
+ *
+ * A general class for the types of Objects on the board.
+ *
  * @author Lewis Miller
  *
  */

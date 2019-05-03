@@ -4,6 +4,8 @@ import coursework.model.Robot;
 
 
 /**
+ *
+ * Has the move functions for the robot
 *
 * @author Lewis Miller & Matthew Osborne
 */
@@ -34,8 +36,7 @@ public class Move {
 	 *  If there is no robot next to it the robots location and board location is updated. </p>
 	 *
 	 *
-	 * @param r
-	 * @return
+	 * @param r Robot
 	 */
 
 	public static void forward(Robot r) {
@@ -46,25 +47,21 @@ public class Move {
 
 		if (Board.checkOutsideBoardForward(row, col, direction) == true) {
 			r.setDead();
-			br.setPlayerLocation(row, col, null);
+			Board.setPlayerLocation(row, col, null);
 		}
 		else if (Board.checkAdjacentSpaceForward(row, col, direction) == null) {
 			if (direction.equals("North")) {
-				r.setRow(row - 1);
-				br.setPlayerLocation(row, col, null);
-				br.setPlayerLocation(row - 1, col, r);
+				Board.removeRobotFromBoard(r);
+				Board.setPlayerLocation(row - 1, col, r);
 			} else if (direction.equals("East")) {
-				r.setCol(col + 1);
-				br.setPlayerLocation(row, col, null);
-				br.setPlayerLocation(row, col +1 , r);
+				Board.removeRobotFromBoard(r);
+				Board.setPlayerLocation(row, col +1 , r);
 			} else if (direction.equals("South")) {
-				r.setRow(row + 1);
-				br.setPlayerLocation(row, col, null);
-				br.setPlayerLocation(row + 1, col, r);
+				Board.removeRobotFromBoard(r);
+				Board.setPlayerLocation(row + 1, col, r);
 			} else if (direction.equals("West")) {
-				r.setCol(col - 1);
-				br.setPlayerLocation(row, col, null);
-				br.setPlayerLocation(row, col - 1, r);
+				Board.removeRobotFromBoard(r);
+				Board.setPlayerLocation(row, col - 1, r);
 			}
 		} else {
 			Robot robotPush = (Robot) Board.checkAdjacentSpaceForward(row, col, direction);
@@ -94,25 +91,25 @@ public class Move {
 
 		if (br.checkOutsideBoardBackward(row, col, direction) == true) {
 			r.setDead();
-			br.setPlayerLocation(row, col, null);
+			Board.setPlayerLocation(row, col, null);
 		}
 		else if (Board.checkAdjacentSpaceBackward(row, col, direction) == null) {
 			if (direction.equals("North")) {
 				r.setRow(row + 1);
-				br.setPlayerLocation(row, col, null);
-				br.setPlayerLocation(row + 1, col, r);
+				Board.setPlayerLocation(row, col, null);
+				Board.setPlayerLocation(row + 1, col, r);
 			} else if (direction.equals("East")) {
 				r.setCol(col - 1);
-				br.setPlayerLocation(row, col, null);
-				br.setPlayerLocation(row, col - 1, r);
+				Board.setPlayerLocation(row, col, null);
+				Board.setPlayerLocation(row, col - 1, r);
 			} else if (direction.equals("South")) {
 				r.setRow(row - 1);
-				br.setPlayerLocation(row, col, null);
-				br.setPlayerLocation(row - 1, col, r);
+				Board.setPlayerLocation(row, col, null);
+				Board.setPlayerLocation(row - 1, col, r);
 			} else if (direction.equals("West")) {
 				r.setCol(col + 1);
-				br.setPlayerLocation(row, col, null);
-				br.setPlayerLocation(row, col + 1, r);
+				Board.setPlayerLocation(row, col, null);
+				Board.setPlayerLocation(row, col + 1, r);
 			}
 		} else {
 			Robot robotPush = (Robot) Board.checkAdjacentSpaceBackward(row, col, direction);

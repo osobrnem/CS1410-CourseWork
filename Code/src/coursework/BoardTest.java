@@ -46,7 +46,7 @@ public class BoardTest {
 
 	@Test
 	public void testCheckOutsideBoardForward() throws Exception {
-		Board board = new Board("src/Boards/only-starting-edge.brd",4);
+		new Board("src/Boards/only-starting-edge.brd",4);
 		assertTrue(Board.checkOutsideBoardForward(0, 0, "North"));
 		assertTrue(Board.checkOutsideBoardForward(0, 0, "West"));
 		assertTrue(Board.checkOutsideBoardForward(0, 5, "East"));
@@ -90,7 +90,7 @@ public class BoardTest {
 	public void testRemoveRobotFromBoard() throws Exception{
 		Board board = new Board("src/Boards/only-starting.brd",1);
 		assertFalse(board.checkPlayerEmpty(2,3));
-		board.removeRobotFromBoard(board.getPlayerRobots().get(0));
+		Board.removeRobotFromBoard(board.getPlayerRobots().get(0));
 		assertTrue(board.checkPlayerEmpty(2,3));
 	}
 

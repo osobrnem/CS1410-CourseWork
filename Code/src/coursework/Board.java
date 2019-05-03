@@ -10,6 +10,9 @@ import coursework.model.Pit;
 import coursework.model.Robot;
 
 /**
+ *
+ * Stores the boards. Handles most of the functions which change the board.
+ *
  * @author Matthew Osborne
  *
  */
@@ -36,10 +39,10 @@ public class Board {
 	 * Gets a board
 	 *
 	 * <p>
-	 * Generates a new ReadBoard class and sends it the board file.
-	 * The board entity array is then returned and set as the board.
-	 * The board player array is used to keep the positions of the Robots on the board.
-	 * The rows and columns are set using the size of the board.
+	 * Generates a new ReadBoard class and sends it the board file. The board
+	 * entity array is then returned and set as the board. The board player
+	 * array is used to keep the positions of the Robots on the board. The rows
+	 * and columns are set using the size of the board.
 	 * </p>
 	 *
 	 * @param file
@@ -82,19 +85,24 @@ public class Board {
 	 * Used to set Robots in the player array
 	 *
 	 * <p>
-	 * Mainly used when moving robots.
-	 * Allows Robots to be added or removed from the array at a specified point.
+	 * Mainly used when moving robots. Allows Robots to be added or removed from
+	 * the array at a specified point.
 	 * </p>
 	 *
-	 * @param r
+	 * @param row
 	 *            Row
-	 * @param c
+	 * @param col
 	 *            column
-	 * @param value
-	 *            Robot or null
+	 * @param r
+	 *            Robot
 	 */
-	public void setPlayerLocation(int r, int c, Robot value) {
-		playerLocations[r][c] = value;
+	public static void setPlayerLocation(int row, int col, Robot r) {
+		playerLocations[row][col] = r;
+
+		if (r != null) {
+			r.setRow(row);
+			r.setCol(col);
+		}
 	}
 
 	/************************************************************************************/
@@ -368,6 +376,12 @@ public class Board {
 
 	/************************************************************************************/
 
+	/**
+	 *
+	 * Gets the number of flags on the board
+	 *
+	 * @return f Flags
+	 */
 	public int getNumberOfFlags() {
 		int f = 0;
 		for (int i = 0; i < row; i++) {
@@ -384,8 +398,18 @@ public class Board {
 
 	/************************************************************************************/
 
-	/************************************************************************************/
-
+	/**
+	 *
+	 * Respawns a robot to the board
+	 *
+	 * <p>
+	 * Checks if the original starting location is free. If it isn't it checks
+	 * each direction around it until it finds a free one.
+	 * </p>
+	 *
+	 * @param r
+	 *            Robot
+	 */
 	public void respawnRobotsToBoard(Robot r) {
 		// If original starting position is occupied
 		if (checkPlayerEmpty(r.getStartingRow(), r.getStartingCol())) {
@@ -409,7 +433,16 @@ public class Board {
 
 	}
 
-	public void removeRobotFromBoard(Robot r) {
+	/************************************************************************************/
+
+	/**
+	 *
+	 * Removes a robot from the board
+	 *
+	 * @param r
+	 *            Robot
+	 */
+	public static void removeRobotFromBoard(Robot r) {
 		setPlayerLocation(r.getRow(), r.getCol(), null);
 	}
 }
