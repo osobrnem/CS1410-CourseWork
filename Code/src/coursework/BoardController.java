@@ -1,6 +1,9 @@
 package coursework;
 
 /**
+ *
+ * Controls the SelectBoardfile GUI
+ *
  * @author Matthew Osborne
  *
  */

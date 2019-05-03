@@ -23,12 +23,15 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
+ *
+ * Draws the GUI for the main game.
+ *
  * @author Matthew Osborne
  *
  */
 public class GameView {
 
-	private static Game g;
+	private static Game game;
 
 	private static VBox vMain;
 	private static HBox hButtons;
@@ -44,11 +47,17 @@ public class GameView {
 	private static TextArea robotStats;
 	private static Stage boardView;
 
+	/**
+	 *
+	 * Creates the GUI for the main part of the game.
+	 *
+	 * @throws Exception
+	 */
 	public GameView() throws Exception {
 
 		GameSetup gs = new GameSetup();
 
-		g = gs.getGame();
+		game = gs.getGame();
 
 		vMain = new VBox();
 		hButtons = new HBox();
@@ -105,6 +114,9 @@ public class GameView {
 
 	}
 
+	/**
+	 * Updates the board with a new grid
+	 */
 	public static void setBoard() {
 
 		hBoard.getChildren().clear();
@@ -120,6 +132,12 @@ public class GameView {
 
 	}
 
+	/**
+	 *
+	 * Creates the GridPane from the Board
+	 *
+	 * @return GridPane A GridPane representing the board
+	 */
 	private static GridPane getGrid() {
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(15));
@@ -165,87 +183,124 @@ public class GameView {
 
 	/************************************************************************************/
 
+	/**
+	 * Add forward when pressed to the current players moves
+	 */
 	EventHandler<ActionEvent> forwardPressed = new EventHandler<ActionEvent>() {
 
 		@Override
 		public void handle(ActionEvent event) {
-			g.setPlayerMoves("F");
+			game.setPlayerMoves("F");
 			updatePlayerStats();
 		}
 	};
 
 	/************************************************************************************/
+
+	/**
+	 * Add backward when pressed to the current players moves
+	 */
 
 	EventHandler<ActionEvent> backwardPressed = new EventHandler<ActionEvent>() {
 
 		@Override
 		public void handle(ActionEvent event) {
-			g.setPlayerMoves("B");
+			game.setPlayerMoves("B");
 			updatePlayerStats();
 		}
 	};
 
 	/************************************************************************************/
+
+	/**
+	 * Add left when pressed to the current players moves
+	 */
 
 	EventHandler<ActionEvent> leftPressed = new EventHandler<ActionEvent>() {
 
 		@Override
 		public void handle(ActionEvent event) {
-			g.setPlayerMoves("L");
+			game.setPlayerMoves("L");
 			updatePlayerStats();
 		}
 	};
 
 	/************************************************************************************/
+
+	/**
+	 * Add right when pressed to the current players moves
+	 */
 
 	EventHandler<ActionEvent> rightPressed = new EventHandler<ActionEvent>() {
 
 		@Override
 		public void handle(ActionEvent event) {
-			g.setPlayerMoves("R");
+			game.setPlayerMoves("R");
 			updatePlayerStats();
 		}
 	};
 
 	/************************************************************************************/
+
+	/**
+	 * Add U-Turn when pressed to the current players moves
+	 */
 
 	EventHandler<ActionEvent> uTurnPressed = new EventHandler<ActionEvent>() {
 
 		@Override
 		public void handle(ActionEvent event) {
-			g.setPlayerMoves("U");
+			game.setPlayerMoves("U");
 			updatePlayerStats();
 		}
 	};
 
 	/************************************************************************************/
+
+	/**
+	 * Add do nothing when pressed to the current players moves
+	 */
 
 	EventHandler<ActionEvent> doNothingPressed = new EventHandler<ActionEvent>() {
 
 		@Override
 		public void handle(ActionEvent event) {
-			g.setPlayerMoves("W");
+			game.setPlayerMoves("W");
 			updatePlayerStats();
 		}
 	};
 
 	/************************************************************************************/
 
+	/**
+	 * Removes the last move when pressed
+	 */
+
 	EventHandler<ActionEvent> removePressed = new EventHandler<ActionEvent>() {
 
 		@Override
 		public void handle(ActionEvent event) {
-			g.removeLastMove();
+			game.removeLastMove();
 			updatePlayerStats();
 		}
 	};
 
+	/************************************************************************************/
+
+	/**
+	 * Closes the GUI window
+	 */
 	public static void close() {
 		vMain.getScene().getWindow().hide();
 	}
 
-	public static void updatePlayerStats(){
-		robotStats.setText(g.getRobotDetailstoString());
+	/************************************************************************************/
+
+	/**
+	 *	Updates the player stats on the GUI
+	 */
+	public static void updatePlayerStats() {
+		robotStats.setText(game.getRobotDetailstoString());
 	}
 
 }

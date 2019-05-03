@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 
 /**
  *
+ * Sets up basic game through a users input into a GUI.
+ *
  * @author Matthew Osborne
  *
  */
@@ -36,7 +38,7 @@ public class GameSetup {
 	private TextField moveInput;
 
 	public GameSetup() throws Exception {
-		//BoardOut.setEditable(false);
+		// BoardOut.setEditable(false);
 
 		final FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("SelectBoardfile.fxml"));
@@ -73,20 +75,23 @@ public class GameSetup {
 		}
 
 		g.setPlayerID();
-		//robotStats.setText(g.getRobotDetailstoString());
+		// robotStats.setText(g.getRobotDetailstoString());
 
 	}
 
-	public Game getGame(){
+	public Game getGame() {
 		return g;
 	}
 
 	/************************************************************************************/
 
 	/**
+	 *
 	 * Sets the player IDs from the playerIDController
+	 *
+	 * @param a
+	 *            Array of player IDs
 	 */
-
 	public static void setPlayerID(String[] a) {
 		playerIDs = new String[4];
 		playerIDs = a;
@@ -104,9 +109,12 @@ public class GameSetup {
 	/************************************************************************************/
 
 	/**
+	 *
 	 * Sets the file
+	 *
+	 * @param f
+	 *            File location
 	 */
-
 	public static void setBoardLocation(String f) {
 		file = f;
 	}
@@ -114,11 +122,11 @@ public class GameSetup {
 	/************************************************************************************/
 
 	/**
-	 * Sets the number of players
+	 * @param NOP
+	 *            Number of players
 	 */
-
-	public static void setNumberOfPlayers(int i) {
-		playerNumber = i;
+	public static void setNumberOfPlayers(int NOP) {
+		playerNumber = NOP;
 	}
 
 }

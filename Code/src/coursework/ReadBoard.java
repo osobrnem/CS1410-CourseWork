@@ -40,7 +40,7 @@ public class ReadBoard {
 	/**
 	 * Returns the player array
 	 *
-	 * @returnplayerRobots
+	 * @return playerRobots
 	 */
 	public ArrayList<Robot> getPlayerRobots() {
 		return playerRobots;
@@ -55,7 +55,8 @@ public class ReadBoard {
 	 * Returns the board of Entity's without players
 	 *
 	 * @param file
-	 * @return Entity[][]
+	 *            File location
+	 * @return Entity[][] Dual array of Entities
 	 * @throws Exception
 	 */
 	public Entity[][] getBoardEntity(String file) throws Exception {
@@ -69,7 +70,8 @@ public class ReadBoard {
 	 * Returns the board of Entity's with only players
 	 *
 	 * @param file
-	 * @return Entity[][] (Robot)
+	 *            File location
+	 * @return Entity[][] Dual array of Entities(Robot)
 	 * @throws Exception
 	 */
 
@@ -108,7 +110,8 @@ public class ReadBoard {
 	 * Generate the board from other functions
 	 *
 	 * @param boardFile
-	 * @return board
+	 *            File location
+	 * @return Entity[][] Dual array of Entities to use as the board
 	 * @throws Exception
 	 */
 	private Entity[][] generateBoardEntity(String boardFile) throws Exception {
@@ -123,7 +126,7 @@ public class ReadBoard {
 	 * Get the file type of a file
 	 *
 	 * @param fileName
-	 * @return fileType returns the type of file it is
+	 *            File location
 	 */
 	protected void checkFileType(String fileName) {
 		String fileType = "";
@@ -151,7 +154,9 @@ public class ReadBoard {
 	 * </p>
 	 *
 	 * @param boardFile
+	 *            File location
 	 * @throws Exception
+	 *             If no file is found
 	 */
 	private void generateArraylist(String boardFile) throws Exception {
 		ArrayList<String> Array = new ArrayList<>();
@@ -176,6 +181,7 @@ public class ReadBoard {
 	 * Check if the array has the correct dimensions
 	 *
 	 * @param board
+	 *            The string ArrayList generated from the board file
 	 * @return boolean
 	 */
 	private boolean checkColAndRowNumbers(ArrayList<String> board) {
@@ -202,7 +208,8 @@ public class ReadBoard {
 	 * </p>
 	 *
 	 * @param boardArray
-	 * @return board two dimensional array (Entity)
+	 *            The string ArrayList generated from the board file
+	 * @return board Two dimensional array (Entity)
 	 * @throws Exception
 	 */
 
@@ -257,6 +264,7 @@ public class ReadBoard {
 	 * </p>
 	 *
 	 * @param boardFile
+	 *            File location
 	 * @return playerArray
 	 */
 

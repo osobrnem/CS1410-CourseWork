@@ -52,8 +52,6 @@ public class Game {
 	 *
 	 * @param file
 	 *            Board file
-	 * @param gs
-	 *            GameSetup
 	 * @param playerNumber
 	 *            Number of players in the game
 	 * @throws Exception
@@ -79,18 +77,36 @@ public class Game {
 
 	/**********************************************************************************/
 
+	/**
+	 *
+	 * Returns the array of ArrayDeques for player moves
+	 *
+	 * @return allPlayerMoves ArrayDeque[]
+	 */
 	public ArrayDeque<String>[] getAllPlayerMoves() {
 		return allPlayerMoves;
 	}
 
 	/**********************************************************************************/
 
+	/**
+	 *
+	 * Returns the ArrayDeques for player order
+	 *
+	 * @return playerOrder ArrayDeque
+	 */
 	public ArrayDeque<Integer> getPlayerOrder() {
 		return playerOrder;
 	}
 
 	/**********************************************************************************/
 
+	/**
+	 *
+	 * Returns the ArrayList of player Robots
+	 *
+	 * @return playerRobots ArrayList
+	 */
 	public ArrayList<Robot> getPlayerRobots() {
 		return playerRobots;
 	}
@@ -270,7 +286,7 @@ public class Game {
 	 *
 	 * <p>
 	 * Used when the board is activated. A robot is passed from
-	 * {@link activateBoard()}. When the robot is checked it is tested against
+	 * {@link #activateBoard()}. When the robot is checked it is tested against
 	 * each possible Entity type it could be on. If it is on an Entity it calls
 	 * the corresponding function.
 	 *
@@ -295,15 +311,15 @@ public class Game {
 				if (((Flag) board.sameEntityLocation(r)).getID() == 1) {
 					r.collectFlag((Flag) board.sameEntityLocation(r));
 				}
-			} else if (!r.getFlags().contains("2")) {
+			} else if (!r.getFlags().contains(2)) {
 				if (((Flag) board.sameEntityLocation(r)).getID() == 2) {
 					r.collectFlag((Flag) board.sameEntityLocation(r));
 				}
-			} else if (!r.getFlags().contains("3")) {
+			} else if (!r.getFlags().contains(3)) {
 				if (((Flag) board.sameEntityLocation(r)).getID() == 3) {
 					r.collectFlag((Flag) board.sameEntityLocation(r));
 				}
-			} else if (!r.getFlags().contains("4")) {
+			} else if (!r.getFlags().contains(4)) {
 				if (((Flag) board.sameEntityLocation(r)).getID() == 4) {
 					r.collectFlag((Flag) board.sameEntityLocation(r));
 				}

@@ -14,9 +14,6 @@ import org.junit.Test;
  */
 public class RobotTest {
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 
 	Robot r1 = new Robot('A', 0, 0);
 	boolean isAlive;

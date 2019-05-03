@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 /**
+ *
+ * Controls the SetPlayerID GUI
+ *
  * @author Matthew Osborne
  *
  */

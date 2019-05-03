@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 /**
  *
+ * The Entity the user interacts with.
+ *
  * @author Muhammad Khan (180196294) and Matthew Osborne (osbornem)
  * @version 18/04/2019
  */

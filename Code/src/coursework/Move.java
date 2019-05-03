@@ -2,14 +2,12 @@ package coursework;
 
 import coursework.model.Robot;
 
-
 /**
  *
  * Has the move functions for the robot
-*
-* @author Lewis Miller & Matthew Osborne
-*/
-
+ *
+ * @author Lewis Miller and Matthew Osborne
+ */
 
 public class Move {
 
@@ -19,7 +17,8 @@ public class Move {
 	 *
 	 * Sets the board
 	 *
-	 * @param br
+	 * @param board
+	 *            Board
 	 */
 	public Move(Board board) {
 		br = board;
@@ -31,12 +30,17 @@ public class Move {
 	 *
 	 * Moves the robot forward
 	 *
-	 *  <p> First checks if the robot is moving outside the board dimensions and if it is destroys it.
-	 *  Then checks for if the space next to the robot has another robot in it. If is has it calls the pushRobotForward function.
-	 *  If there is no robot next to it the robots location and board location is updated. </p>
+	 * <p>
+	 * First checks if the robot is moving outside the board dimensions and if
+	 * it is destroys it. Then checks for if the space next to the robot has
+	 * another robot in it. If is has it calls the pushRobotForward function. If
+	 * there is no robot next to it the robots location and board location is
+	 * updated.
+	 * </p>
 	 *
 	 *
-	 * @param r Robot
+	 * @param r
+	 *            Robot
 	 */
 
 	public static void forward(Robot r) {
@@ -48,14 +52,13 @@ public class Move {
 		if (Board.checkOutsideBoardForward(row, col, direction) == true) {
 			r.setDead();
 			Board.setPlayerLocation(row, col, null);
-		}
-		else if (Board.checkAdjacentSpaceForward(row, col, direction) == null) {
+		} else if (Board.checkAdjacentSpaceForward(row, col, direction) == null) {
 			if (direction.equals("North")) {
 				Board.removeRobotFromBoard(r);
 				Board.setPlayerLocation(row - 1, col, r);
 			} else if (direction.equals("East")) {
 				Board.removeRobotFromBoard(r);
-				Board.setPlayerLocation(row, col +1 , r);
+				Board.setPlayerLocation(row, col + 1, r);
 			} else if (direction.equals("South")) {
 				Board.removeRobotFromBoard(r);
 				Board.setPlayerLocation(row + 1, col, r);
@@ -75,12 +78,17 @@ public class Move {
 	 *
 	 * Moves the robot backward
 	 *
-	 *  <p> First checks if the robot is moving outside the board dimensions and if it is destroys it.
-	 *  Then checks for if the space next to the robot has another robot in it. If is has it calls the pushRobotBackward function.
-	 *  If there is no robot next to it the robots location and board location is updated. </p>
+	 * <p>
+	 * First checks if the robot is moving outside the board dimensions and if
+	 * it is destroys it. Then checks for if the space next to the robot has
+	 * another robot in it. If is has it calls the pushRobotBackward function.
+	 * If there is no robot next to it the robots location and board location is
+	 * updated.
+	 * </p>
 	 *
 	 *
 	 * @param r
+	 *            Robot
 	 */
 
 	public static void backward(Robot r) {
@@ -92,8 +100,7 @@ public class Move {
 		if (br.checkOutsideBoardBackward(row, col, direction) == true) {
 			r.setDead();
 			Board.setPlayerLocation(row, col, null);
-		}
-		else if (Board.checkAdjacentSpaceBackward(row, col, direction) == null) {
+		} else if (Board.checkAdjacentSpaceBackward(row, col, direction) == null) {
 			if (direction.equals("North")) {
 				r.setRow(row + 1);
 				Board.setPlayerLocation(row, col, null);
@@ -123,11 +130,16 @@ public class Move {
 	 *
 	 * Moves the current and the robot in front forwards
 	 *
-	 * <p> First checks the direction the robot is facing so the robot in front is pushed the right way.
-	 * Then calls the corresponding function to move the robot. </p>
+	 * <p>
+	 * First checks the direction the robot is facing so the robot in front is
+	 * pushed the right way. Then calls the corresponding function to move the
+	 * robot.
+	 * </p>
 	 *
 	 * @param r
-	 * @param robot
+	 *            Current Robot
+	 * @param robotPush
+	 *            Robot being pushed
 	 */
 
 	public static void pushRobotForward(Robot r, Robot robotPush) {
@@ -137,22 +149,22 @@ public class Move {
 		} else if (r.getDirection().equals("West") && robotPush.getDirection().equals("East")) {
 			backward(robotPush);
 			forward(r);
-		} else if(r.getDirection().equals("East") && robotPush.getDirection().equals("North")){
+		} else if (r.getDirection().equals("East") && robotPush.getDirection().equals("North")) {
 			right(robotPush);
 			forward(robotPush);
 			left(robotPush);
 			forward(r);
-		} else if(r.getDirection().equals("East") && robotPush.getDirection().equals("South")){
+		} else if (r.getDirection().equals("East") && robotPush.getDirection().equals("South")) {
 			left(robotPush);
 			forward(robotPush);
 			right(robotPush);
 			forward(r);
-		} else if(r.getDirection().equals("West") && robotPush.getDirection().equals("South")){
+		} else if (r.getDirection().equals("West") && robotPush.getDirection().equals("South")) {
 			right(robotPush);
 			forward(robotPush);
 			left(robotPush);
 			forward(r);
-		} else if(r.getDirection().equals("West") && robotPush.getDirection().equals("North")){
+		} else if (r.getDirection().equals("West") && robotPush.getDirection().equals("North")) {
 			left(robotPush);
 			forward(robotPush);
 			right(robotPush);
@@ -163,18 +175,22 @@ public class Move {
 		}
 	}
 
-
 	/************************************************************************************/
 
 	/**
 	 *
 	 * Moves the current and the robot in front backwards
 	 *
-	 * <p> First checks the direction the robot is facing so the robot in front is pushed the right way.
-	 * Then calls the corresponding function to move the robot. </p>
+	 * <p>
+	 * First checks the direction the robot is facing so the robot in front is
+	 * pushed the right way. Then calls the corresponding function to move the
+	 * robot.
+	 * </p>
 	 *
 	 * @param r
-	 * @param robot
+	 *            Current Robot
+	 * @param robotPush
+	 *            Robot being pushed
 	 */
 
 	public static void pushRobotBackward(Robot r, Robot robotPush) {
@@ -184,22 +200,22 @@ public class Move {
 		} else if (r.getDirection().equals("West") && robotPush.getDirection().equals("East")) {
 			forward(robotPush);
 			backward(r);
-		} else if(r.getDirection().equals("East") && robotPush.getDirection().equals("North")){
+		} else if (r.getDirection().equals("East") && robotPush.getDirection().equals("North")) {
 			left(robotPush);
 			forward(robotPush);
 			right(robotPush);
 			forward(r);
-		} else if(r.getDirection().equals("East") && robotPush.getDirection().equals("South")){
+		} else if (r.getDirection().equals("East") && robotPush.getDirection().equals("South")) {
 			right(robotPush);
 			forward(robotPush);
 			left(robotPush);
 			forward(r);
-		} else if(r.getDirection().equals("West") && robotPush.getDirection().equals("South")){
+		} else if (r.getDirection().equals("West") && robotPush.getDirection().equals("South")) {
 			left(robotPush);
 			forward(robotPush);
 			right(robotPush);
 			forward(r);
-		} else if(r.getDirection().equals("West") && robotPush.getDirection().equals("North")){
+		} else if (r.getDirection().equals("West") && robotPush.getDirection().equals("North")) {
 			right(robotPush);
 			forward(robotPush);
 			left(robotPush);
@@ -216,9 +232,13 @@ public class Move {
 	 *
 	 * Turns the robot left
 	 *
-	 * <p> Takes the robots current direction and changes it by 90 degrees to the left.</p>
+	 * <p>
+	 * Takes the robots current direction and changes it by 90 degrees to the
+	 * left.
+	 * </p>
 	 *
 	 * @param r
+	 *            Robot
 	 */
 
 	public static void left(Robot r) {
@@ -241,9 +261,13 @@ public class Move {
 	 *
 	 * Turns the robot right
 	 *
-	 * <p> Takes the robots current direction and changes it by 90 degrees to the right.</p>
+	 * <p>
+	 * Takes the robots current direction and changes it by 90 degrees to the
+	 * right.
+	 * </p>
 	 *
 	 * @param r
+	 *            Robot
 	 */
 
 	public static void right(Robot r) {
@@ -266,7 +290,7 @@ public class Move {
 	 *
 	 * Turns the robot 180 degrees
 	 *
-	 * @param r
+	 * @param r Robot
 	 */
 
 	public static void uTurn(Robot r) {

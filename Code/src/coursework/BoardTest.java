@@ -28,7 +28,7 @@ public class BoardTest {
 
 	@Test
 	public void testCheckAdjacentSpaceForward() throws Exception {
-		Board board = new Board("src/only-starting-testForward.brd",4);
+		Board board = new Board("src/Boards/forwardTest.brd",4);
 		assertEquals(Board.checkAdjacentSpaceForward(2, 2, "North"),board.getPlayerRobots().get(2));
 		assertEquals(Board.checkAdjacentSpaceForward(2, 2, "East"),board.getPlayerRobots().get(0));
 		assertEquals(Board.checkAdjacentSpaceForward(2, 2, "South"),null);
@@ -37,7 +37,7 @@ public class BoardTest {
 
 	@Test
 	public void testCheckAdjacentSpaceBackward() throws Exception {
-		Board board = new Board("src/Boards/only-starting-testForward.brd",4);
+		Board board = new Board("src/Boards/forwardTest.brd",4);
 		assertEquals(Board.checkAdjacentSpaceBackward(2, 2, "South"),board.getPlayerRobots().get(2));
 		assertEquals(Board.checkAdjacentSpaceBackward(2, 2, "West"),board.getPlayerRobots().get(0));
 		assertEquals(Board.checkAdjacentSpaceBackward(2, 2, "North"),null);
@@ -46,7 +46,7 @@ public class BoardTest {
 
 	@Test
 	public void testCheckOutsideBoardForward() throws Exception {
-		new Board("src/Boards/only-starting-edge.brd",4);
+		new Board("src/Boards/edgeTest.brd",4);
 		assertTrue(Board.checkOutsideBoardForward(0, 0, "North"));
 		assertTrue(Board.checkOutsideBoardForward(0, 0, "West"));
 		assertTrue(Board.checkOutsideBoardForward(0, 5, "East"));
@@ -56,7 +56,7 @@ public class BoardTest {
 
 	@Test
 	public void testCheckOutsideBoardBackward() throws Exception {
-		Board board = new Board("src/Boards/only-starting-edge.brd",4);
+		Board board = new Board("src/Boards/edgeTest.brd",4);
 		assertTrue(board.checkOutsideBoardBackward(0, 0, "South"));
 		assertTrue(board.checkOutsideBoardBackward(0, 0, "East"));
 		assertTrue(board.checkOutsideBoardBackward(0, 5, "West"));
@@ -73,7 +73,7 @@ public class BoardTest {
 		assertEquals(boardF.sameEntityLocation(robot2),null);
 		Board boardG = new Board("src/Boards/only-gears.brd",4);
 		assertEquals(boardG.sameEntityLocation(robot1),boardG.getBoardEntity()[1][1]);
-		Board boardP = new Board("src/only-pits.brd",1);
+		Board boardP = new Board("src/Boards/only-pits.brd",1);
 		Robot robot3 = new Robot('C',0,1);
 		assertEquals(boardP.sameEntityLocation(robot3),boardP.getBoardEntity()[0][1]);
 	}

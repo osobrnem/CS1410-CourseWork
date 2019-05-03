@@ -47,6 +47,8 @@ public class Board {
 	 *
 	 * @param file
 	 *            Board file from input
+	 * @param NOP
+	 *            Number of players
 	 * @throws Exception
 	 */
 
@@ -361,9 +363,7 @@ public class Board {
 	 * Returns an Entity if there is one in the same location as the robot
 	 *
 	 * @param r
-	 *            Row
-	 * @param c
-	 *            Column
+	 *            Robot
 	 * @return Entity or null
 	 */
 
