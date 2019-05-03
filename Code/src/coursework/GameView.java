@@ -52,12 +52,9 @@ public class GameView {
 	 * Creates the GUI for the main part of the game.
 	 *
 	 * @throws Exception
+	 *             File Not found Exception
 	 */
 	public GameView() throws Exception {
-
-		GameSetup gs = new GameSetup();
-
-		game = gs.getGame();
 
 		vMain = new VBox();
 		hButtons = new HBox();
@@ -98,7 +95,6 @@ public class GameView {
 		hBoard.setPadding(new Insets(15));
 		hBoard.setAlignment(Pos.BASELINE_CENTER);
 
-		updatePlayerStats();
 		robotStats.setEditable(false);
 		robotStats.setPrefColumnCount(15);
 		robotStats.setPrefRowCount(5);
@@ -110,8 +106,16 @@ public class GameView {
 		boardView.setTitle("Robo Rally");
 		boardView.setScene(scene);
 
-		setBoard();
+		GameSetup gs = new GameSetup();
 
+		game = gs.getGame();
+
+		if (game.hasProgramme()) {
+			startProgramme();
+		}
+
+		setBoard();
+		updatePlayerStats();
 	}
 
 	/**
@@ -297,10 +301,25 @@ public class GameView {
 	/************************************************************************************/
 
 	/**
-	 *	Updates the player stats on the GUI
+	 * Updates the player stats on the GUI
 	 */
 	public static void updatePlayerStats() {
 		robotStats.setText(game.getRobotDetailstoString());
+	}
+
+	/************************************************************************************/
+
+	/**
+	 * Runs the programme
+	 *
+	 * <p>
+	 * Runs the programme for the correct number of rounds.
+	 * </p>
+	 */
+	public void startProgramme() {
+		for (int r = 0; r < GenerateProgramme.getRounds(); r++) {
+			game.startProgramme(r);
+		}
 	}
 
 }

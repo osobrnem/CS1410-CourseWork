@@ -11,6 +11,9 @@ import coursework.model.Robot;
 import coursework.Board;
 
 /**
+ *
+ * Test for the Game class
+ *
  * @author Matthew Osborne
  *
  */
@@ -24,7 +27,7 @@ public class GameTest {
 	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
-		g = new Game("src/boards/GameTestBoard.brd", numberOfPlayers);
+		g = new Game("src/boards/GameTestBoard.brd", numberOfPlayers, "");
 
 		testMoves = new ArrayDeque[1];
 		testMoves[0] = new ArrayDeque<String>();

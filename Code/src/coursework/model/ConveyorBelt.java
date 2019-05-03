@@ -15,13 +15,19 @@ public class ConveyorBelt extends Entity {
 
 	private String direction;
 
+	/**
+	 *
+	 * Get the direction the conveyor is facing.
+	 *
+	 * @return direction
+	 */
 	public String getDirection() {
 		return direction;
 	}
 
 	/**
 	 *
-	 * Sets the direction of the conveyor Belt
+	 * Sets the direction of the conveyor Belt.
 	 *
 	 * @param direction The direction the conveyor is facing
 	 */

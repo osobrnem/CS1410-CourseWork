@@ -8,6 +8,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
+ *
+ * Test for the Move class
+ *
  * @author Akeel Saleem, Uzair Akhter
  */
 public class MoveTest {

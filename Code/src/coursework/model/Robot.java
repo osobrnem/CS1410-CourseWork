@@ -53,27 +53,58 @@ public class Robot extends Entity {
 
 	// Getters and setters
 
+	/**
+	 * Set robot as dead
+	 */
 	public void setDead() {
 		isAlive = false;
 	}
 
+	/**
+	 * Set robot as alive
+	 */
 	public void setAlive() {
 		isAlive = true;
 		direction = "North";
 	}
 
+	/**
+	 *
+	 * Get if the robot is alive
+	 *
+	 * @return isAlive
+	 */
 	public Boolean getIsAlive() {
 		return isAlive;
 	}
 
+	/**
+	 *
+	 * Get the row the robot started on
+	 *
+	 * @return startingRow
+	 */
 	public int getStartingRow() {
 		return startingRow;
 	}
+
+	/**
+	 *
+	 * Get the column the robot started on
+	 *
+	 * @return startingCol
+	 */
 
 	public int getStartingCol() {
 		return startingCol;
 	}
 
+	/**
+	 *
+	 * Set the direction of the robot
+	 *
+	 * @param newDirection New direction to set robot
+	 */
 	public void setDirection(String newDirection) {
 		if (newDirection.equals("North")) {
 			direction = "North";
@@ -88,23 +119,52 @@ public class Robot extends Entity {
 		}
 	}
 
+	/**
+	 *
+	 * Get the direction of the robot
+	 *
+	 * @return direction
+	 */
 	public String getDirection() {
 		return direction;
 	}
 
 
+	/**
+	 *
+	 * Get the ID of the robot
+	 *
+	 * @return ID
+	 */
 	public String getID() {
 		return ID;
 	}
 
+	/**
+	 *
+	 * Set the ID of the robot
+	 *
+	 * @param id New ID
+	 */
 	public void setID(String id) {
 		ID = id;
 	}
 
+	/**
+	 *
+	 * Return the collected flags ArrayList
+	 *
+	 * @return flags
+	 */
 	public ArrayList<Integer> getFlags() {
 		return flags;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 *
+	 * Make the flags ArrayList into a string
+	 */
 	@Override
 	public String toString() {
 		return "" + flags;

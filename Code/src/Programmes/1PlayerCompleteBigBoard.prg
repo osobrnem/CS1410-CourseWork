@@ -1,0 +1,9 @@
+format 1
+TestRobot1 
+BFLFW 
+RFWLF
+RFLFL
+FWFWF
+LFLFR
+FWFWF
+FWUWU

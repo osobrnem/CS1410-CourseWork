@@ -13,7 +13,14 @@ public class Flag extends Entity {
 		super();
 		ID = i;
 	}
-	//Get the ID
+
+
+	/**
+	 *
+	 * Get the ID of the flag
+	 *
+	 * @return ID
+	 */
 	public int getID() {
 		return ID;
 	}

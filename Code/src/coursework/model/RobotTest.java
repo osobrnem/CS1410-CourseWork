@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ *
+ * Test for the Robot class
+ *
  * @author Muhammad Khan
  *
  */

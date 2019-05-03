@@ -8,10 +8,31 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox />
+      <HBox>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Enter Programme to run or leave blank for local play">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
+         </children></HBox>
       <HBox alignment="CENTER">
          <children>
-            <Label text="Board File: ">
+            <Label prefWidth="90.0" text="Programme File: ">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="ProgrammeInput" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER">
+         <children>
+            <Label prefWidth="90.0" text="Board File: ">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" top="5.0" />
                </HBox.margin>
@@ -21,11 +42,6 @@
                   <Insets bottom="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#submitButton" text="Submit">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </Button>
          </children>
       </HBox>
       <HBox alignment="CENTER">
@@ -51,6 +67,15 @@
                   <Insets bottom="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#submitButton" text="Submit">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>

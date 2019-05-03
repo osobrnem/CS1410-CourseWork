@@ -36,9 +36,8 @@ public class Game {
 	private ArrayDeque<String>[] allPlayerMoves;
 	private ArrayDeque<Integer> playerOrder;
 	private String lastMove = "";
-
 	private int currentPlayer = 0;
-
+	private Boolean programme = false;
 
 	/**
 	 *
@@ -50,19 +49,27 @@ public class Game {
 	 * the players.
 	 * </p>
 	 *
-	 * @param file
+	 * @param Boardfile
 	 *            Board file
+	 * @param programmeFile
+	 *            Programme file
 	 * @param playerNumber
 	 *            Number of players in the game
 	 * @throws Exception
+	 *             File Not Found Exception
+	 *
 	 */
 	@SuppressWarnings("unchecked")
-	public Game(String file, int playerNumber) throws Exception {
-		board = new Board(file, playerNumber);
+	public Game(String Boardfile, int playerNumber, String programmeFile) throws Exception {
+		ReadFile rf = new ReadFile();
+		rf.read(Boardfile, playerNumber);
+
+		board = new Board();
 		playerRobots = board.getPlayerRobots();
 		new Move(board);
 
 		numberOfPlayers = playerNumber;
+		// this.programmeGiven = programmeGiven;
 
 		allPlayerMoves = new ArrayDeque[numberOfPlayers];
 		playerOrder = new ArrayDeque<Integer>();
@@ -71,6 +78,12 @@ public class Game {
 			ArrayDeque<String> moves = new ArrayDeque<String>();
 			allPlayerMoves[i] = moves;
 			playerOrder.add(i);
+		}
+
+		if (!programmeFile.equals("")) {
+			programme = true;
+			rf.read(programmeFile, 0);
+			addProgrammeIDs();
 		}
 
 	}
@@ -109,20 +122,6 @@ public class Game {
 	 */
 	public ArrayList<Robot> getPlayerRobots() {
 		return playerRobots;
-	}
-
-
-	/**********************************************************************************/
-
-	/**
-	 *
-	 * Sets the number of players playing on the board
-	 *
-	 * @param NOP
-	 *            Number of players
-	 */
-	public void setNumberOfPlayers(int NOP) {
-		numberOfPlayers = NOP;
 	}
 
 	/**********************************************************************************/
@@ -413,4 +412,47 @@ public class Game {
 
 	}
 
+	private void addProgrammeMoves(int round) {
+		for (int player = 0; player < numberOfPlayers; player++)
+			for (int i = 0; i < 5; i++) {
+				currentPlayer = player;
+				String m = Character.toString(GenerateProgramme.getPlayerMoves()[round].get(player).charAt(i));
+				System.out.println(m);
+				setPlayerMoves(m);
+			}
+	}
+
+	private void addProgrammeIDs() {
+		for (int i = 0; i < numberOfPlayers; i++)
+			if (playerRobots.get(i).getID().equalsIgnoreCase("A")) {
+				playerRobots.get(i).setID(GenerateProgramme.getPlayerIDs().get(0));
+			} else if (playerRobots.get(i).getID().equalsIgnoreCase("B")) {
+				playerRobots.get(i).setID(GenerateProgramme.getPlayerIDs().get(1));
+			} else if (playerRobots.get(i).getID().equalsIgnoreCase("C")) {
+				playerRobots.get(i).setID(GenerateProgramme.getPlayerIDs().get(2));
+			} else if (playerRobots.get(i).getID().equalsIgnoreCase("D")) {
+				playerRobots.get(i).setID(GenerateProgramme.getPlayerIDs().get(3));
+			}
+
+	}
+
+	/**
+	 *
+	 * Starts the programme that was imported during setup.
+	 *
+	 * @param rounds Number of rounds in the programme
+	 */
+	public void startProgramme(int rounds) {
+		addProgrammeMoves(rounds);
+	}
+
+	/**
+	 *
+	 * Return the Boolean to if a programme was imported.
+	 *
+	 * @return programme True or False
+	 */
+	public Boolean hasProgramme() {
+		return programme;
+	}
 }

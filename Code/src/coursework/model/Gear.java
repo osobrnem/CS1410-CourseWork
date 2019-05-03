@@ -12,10 +12,6 @@ public class Gear extends Entity{
 	private String rotation;
 
 
-	public String getRotation() {
-		return rotation;
-	}
-
 	/*
 	 * Constructor for the Gear class
 	 */
@@ -24,6 +20,23 @@ public class Gear extends Entity{
 		rotation = r;
 	}
 
+
+	/**
+	 *
+	 * Return the rotation the gear is
+	 *
+	 * @return String
+	 */
+	public String getRotation() {
+		return rotation;
+	}
+
+	/**
+	 *
+	 * Rotates the robot in the corresponding direction
+	 *
+	 * @param robot Robot
+	 */
 	public void act(Robot robot) {
 		if(rotation.equals("clockwise")){
 			Move.right(robot);

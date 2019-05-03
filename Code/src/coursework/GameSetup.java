@@ -22,7 +22,8 @@ import javafx.stage.Stage;
  */
 public class GameSetup {
 
-	private static String file;
+	private static String boardFile;
+	private static String programmeFile;
 	private static int playerNumber;
 	private static String playerIDs[];
 
@@ -37,6 +38,22 @@ public class GameSetup {
 	@FXML
 	private TextField moveInput;
 
+	/**
+	 *
+	 * Sets up the parameters for the game.
+	 *
+	 * <p>
+	 * Starts by loading the SelectBoardfile GUI. This allows the user to input
+	 * the required files and player number. A game is then created using the
+	 * data passed from SelectBoardfile. If there is no programme file specified
+	 * a select player ID GUI is displayed. This allows the user to input the
+	 * player IDs.
+	 * </p>
+	 *
+	 *
+	 * @throws Exception
+	 *             File Not found Exception
+	 */
 	public GameSetup() throws Exception {
 		// BoardOut.setEditable(false);
 
@@ -48,6 +65,7 @@ public class GameSetup {
 			final Parent parent = (Parent) loader.load();
 
 			final Stage BoardStage = new Stage();
+			BoardStage.setTitle("Select files");
 			BoardStage.initModality(Modality.APPLICATION_MODAL);
 			BoardStage.setScene(new Scene(parent, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
 			BoardStage.showAndWait();
@@ -56,29 +74,37 @@ public class GameSetup {
 			ex.printStackTrace();
 		}
 
-		g = new Game(file, playerNumber);
+		g = new Game(boardFile, playerNumber, programmeFile);
 
-		final FXMLLoader loader1 = new FXMLLoader();
-		loader1.setLocation(getClass().getResource("SetPlayerID.fxml"));
-		final playerIDController IDcontroller = new playerIDController();
-		loader1.setController(IDcontroller);
-		try {
-			final Parent parent = (Parent) loader1.load();
+		if (programmeFile.equals("")) {
+			final FXMLLoader loader1 = new FXMLLoader();
+			loader1.setLocation(getClass().getResource("SetPlayerID.fxml"));
+			final playerIDController IDcontroller = new playerIDController();
+			loader1.setController(IDcontroller);
+			try {
+				final Parent parent = (Parent) loader1.load();
 
-			final Stage IDStage = new Stage();
-			IDStage.initModality(Modality.APPLICATION_MODAL);
-			IDStage.setScene(new Scene(parent, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
-			IDStage.showAndWait();
+				final Stage IDStage = new Stage();
+				IDStage.initModality(Modality.APPLICATION_MODAL);
+				IDStage.setScene(new Scene(parent, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
+				IDStage.showAndWait();
 
-		} catch (IOException ex) {
-			ex.printStackTrace();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+
+			g.setPlayerID();
 		}
-
-		g.setPlayerID();
-		// robotStats.setText(g.getRobotDetailstoString());
-
 	}
 
+	/************************************************************************************/
+
+	/**
+	 *
+	 * Return the Game class
+	 *
+	 * @return g Game
+	 */
 	public Game getGame() {
 		return g;
 	}
@@ -112,16 +138,23 @@ public class GameSetup {
 	 *
 	 * Sets the file
 	 *
-	 * @param f
-	 *            File location
+	 * @param bf
+	 *            Board file location
+	 *
+	 * @param pf
+	 *            Programme file location
 	 */
-	public static void setBoardLocation(String f) {
-		file = f;
+	public static void setBoardLocation(String bf, String pf) {
+		boardFile = bf;
+		programmeFile = pf;
 	}
 
 	/************************************************************************************/
 
 	/**
+	 *
+	 * Set the number of players playing on the board.
+	 *
 	 * @param NOP
 	 *            Number of players
 	 */

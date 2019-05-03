@@ -9,44 +9,53 @@ import org.junit.Test;
 import coursework.model.Robot;
 
 /**
+ *
+ * Test for the Board class
+ *
  * @author Lewis Miller
  *
  */
 public class BoardTest {
 
+	private ReadFile rf;
+
 	@Before
 	public void setUp() throws Exception {
-
+		rf = new ReadFile();
 	}
 
 	@Test
 	public void testCheckPlayerEmpty() throws Exception {
-		Board board = new Board("src/Boards/only-starting.brd",4);
-		assertTrue(board.checkPlayerEmpty(0,0));
-		assertFalse(board.checkPlayerEmpty(1,1));
+		rf.read("src/Boards/only-starting.brd", 4);
+		Board board = new Board();
+		assertTrue(board.checkPlayerEmpty(0, 0));
+		assertFalse(board.checkPlayerEmpty(1, 1));
 	}
 
 	@Test
 	public void testCheckAdjacentSpaceForward() throws Exception {
-		Board board = new Board("src/Boards/forwardTest.brd",4);
-		assertEquals(Board.checkAdjacentSpaceForward(2, 2, "North"),board.getPlayerRobots().get(2));
-		assertEquals(Board.checkAdjacentSpaceForward(2, 2, "East"),board.getPlayerRobots().get(0));
-		assertEquals(Board.checkAdjacentSpaceForward(2, 2, "South"),null);
-		assertEquals(Board.checkAdjacentSpaceForward(2, 3, "West"),board.getPlayerRobots().get(1));
+		rf.read("src/Boards/forwardTest.brd", 4);
+		Board board = new Board();
+		assertEquals(Board.checkAdjacentSpaceForward(2, 2, "North"), board.getPlayerRobots().get(2));
+		assertEquals(Board.checkAdjacentSpaceForward(2, 2, "East"), board.getPlayerRobots().get(0));
+		assertEquals(Board.checkAdjacentSpaceForward(2, 2, "South"), null);
+		assertEquals(Board.checkAdjacentSpaceForward(2, 3, "West"), board.getPlayerRobots().get(1));
 	}
 
 	@Test
 	public void testCheckAdjacentSpaceBackward() throws Exception {
-		Board board = new Board("src/Boards/forwardTest.brd",4);
-		assertEquals(Board.checkAdjacentSpaceBackward(2, 2, "South"),board.getPlayerRobots().get(2));
-		assertEquals(Board.checkAdjacentSpaceBackward(2, 2, "West"),board.getPlayerRobots().get(0));
-		assertEquals(Board.checkAdjacentSpaceBackward(2, 2, "North"),null);
-		assertEquals(Board.checkAdjacentSpaceBackward(2, 3, "East"),board.getPlayerRobots().get(1));
+		rf.read("src/Boards/forwardTest.brd", 4);
+		Board board = new Board();
+		assertEquals(Board.checkAdjacentSpaceBackward(2, 2, "South"), board.getPlayerRobots().get(2));
+		assertEquals(Board.checkAdjacentSpaceBackward(2, 2, "West"), board.getPlayerRobots().get(0));
+		assertEquals(Board.checkAdjacentSpaceBackward(2, 2, "North"), null);
+		assertEquals(Board.checkAdjacentSpaceBackward(2, 3, "East"), board.getPlayerRobots().get(1));
 	}
 
 	@Test
 	public void testCheckOutsideBoardForward() throws Exception {
-		new Board("src/Boards/edgeTest.brd",4);
+		rf.read("src/Boards/edgeTest.brd", 4);
+		new Board();
 		assertTrue(Board.checkOutsideBoardForward(0, 0, "North"));
 		assertTrue(Board.checkOutsideBoardForward(0, 0, "West"));
 		assertTrue(Board.checkOutsideBoardForward(0, 5, "East"));
@@ -56,7 +65,8 @@ public class BoardTest {
 
 	@Test
 	public void testCheckOutsideBoardBackward() throws Exception {
-		Board board = new Board("src/Boards/edgeTest.brd",4);
+		rf.read("src/Boards/edgeTest.brd", 4);
+		Board board = new Board();
 		assertTrue(board.checkOutsideBoardBackward(0, 0, "South"));
 		assertTrue(board.checkOutsideBoardBackward(0, 0, "East"));
 		assertTrue(board.checkOutsideBoardBackward(0, 5, "West"));
@@ -65,33 +75,42 @@ public class BoardTest {
 	}
 
 	@Test
-	public void testSameEntityLocation() throws Exception{
-		Board boardF = new Board("src/Boards/only-flags.brd",4);
-		Robot robot1 = new Robot('A',1,1);
-		Robot robot2 = new Robot('B',0,0);
-		assertEquals(boardF.sameEntityLocation(robot1),boardF.getBoardEntity()[1][1]);
-		assertEquals(boardF.sameEntityLocation(robot2),null);
-		Board boardG = new Board("src/Boards/only-gears.brd",4);
-		assertEquals(boardG.sameEntityLocation(robot1),boardG.getBoardEntity()[1][1]);
-		Board boardP = new Board("src/Boards/only-pits.brd",1);
-		Robot robot3 = new Robot('C',0,1);
-		assertEquals(boardP.sameEntityLocation(robot3),boardP.getBoardEntity()[0][1]);
+	public void testSameEntityLocation() throws Exception {
+		rf.read("src/Boards/only-flags.brd", 4);
+		Board boardF = new Board();
+		Robot robot1 = new Robot('A', 1, 1);
+		Robot robot2 = new Robot('B', 0, 0);
+		assertEquals(boardF.sameEntityLocation(robot1), boardF.getBoardEntity()[1][1]);
+		assertEquals(boardF.sameEntityLocation(robot2), null);
+
+		rf.read("src/Boards/only-gears.brd", 4);
+		Board boardG = new Board();
+		assertEquals(boardG.sameEntityLocation(robot1), boardG.getBoardEntity()[1][1]);
+
+		rf.read("src/Boards/only-pits.brd", 4);
+		Board boardP = new Board();
+		Robot robot3 = new Robot('C', 0, 1);
+		assertEquals(boardP.sameEntityLocation(robot3), boardP.getBoardEntity()[0][1]);
 	}
 
 	@Test
-	public void testGetNumberOfFlags() throws Exception{
-		Board board = new Board("src/Boards/only-flags.brd",4);
-		assertEquals(board.getNumberOfFlags(),4);
-		Board boardG = new Board("src/Boards/only-gears.brd",4);
-		assertEquals(boardG.getNumberOfFlags(),0);
+	public void testGetNumberOfFlags() throws Exception {
+		rf.read("src/Boards/only-flags.brd", 4);
+		Board boardF = new Board();
+		assertEquals(boardF.getNumberOfFlags(), 4);
+
+		rf.read("src/Boards/only-gears.brd", 4);
+		Board boardG = new Board();
+		assertEquals(boardG.getNumberOfFlags(), 0);
 	}
 
 	@Test
-	public void testRemoveRobotFromBoard() throws Exception{
-		Board board = new Board("src/Boards/only-starting.brd",1);
-		assertFalse(board.checkPlayerEmpty(2,3));
+	public void testRemoveRobotFromBoard() throws Exception {
+		rf.read("src/Boards/only-starting.brd", 1);
+		Board board = new Board();
+		assertFalse(board.checkPlayerEmpty(2, 3));
 		Board.removeRobotFromBoard(board.getPlayerRobots().get(0));
-		assertTrue(board.checkPlayerEmpty(2,3));
+		assertTrue(board.checkPlayerEmpty(2, 3));
 	}
 
 }

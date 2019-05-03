@@ -30,10 +30,9 @@ public class Main extends Application  {
 	/************************************************************************************/
 
 	/**
-	 * @param args
-	 * @throws Exception
+	 * @param args Input
 	 */
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) {
 		launch(args);
 	}
 }

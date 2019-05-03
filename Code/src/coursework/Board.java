@@ -19,18 +19,8 @@ import coursework.model.Robot;
 
 public class Board {
 
-	private static ReadBoard br;
 	private static Entity[][] boardEntity;
 	private static Robot[][] playerLocations;
-	private static String boardFile;
-
-	public static int getRow() {
-		return row;
-	}
-
-	public static int getCol() {
-		return col;
-	}
 
 	private static int row;
 	private static int col;
@@ -39,26 +29,18 @@ public class Board {
 	 * Gets a board
 	 *
 	 * <p>
-	 * Generates a new ReadBoard class and sends it the board file. The board
-	 * entity array is then returned and set as the board. The board player
-	 * array is used to keep the positions of the Robots on the board. The rows
-	 * and columns are set using the size of the board.
+	 * Generates a new board entity array. The board entity array is then set as
+	 * the board. The board player array is used to keep the positions of the
+	 * Robots on the board. The rows and columns are set using the size of the
+	 * board.
 	 * </p>
 	 *
-	 * @param file
-	 *            Board file from input
-	 * @param NOP
-	 *            Number of players
-	 * @throws Exception
 	 */
 
-	public Board(String file, int NOP) throws Exception {
+	public Board() {
 
-		boardFile = file;
-		br = new ReadBoard(NOP);
-
-		boardEntity = br.getBoardEntity(boardFile);
-		playerLocations = (Robot[][]) br.getBoardPlayer(boardFile);
+		boardEntity = GenerateBoard.getBoardEntity();
+		playerLocations = (Robot[][]) GenerateBoard.getBoardPlayer();
 
 		row = boardEntity.length;
 		col = boardEntity[1].length;
@@ -74,12 +56,36 @@ public class Board {
 
 	/**
 	 *
+	 * Returns the row
+	 *
+	 * @return row Row
+	 */
+	public static int getRow() {
+		return row;
+	}
+
+	/************************************************************************************/
+
+	/**
+	 *
+	 * Returns the column
+	 *
+	 * @return col Column
+	 */
+	public static int getCol() {
+		return col;
+	}
+
+	/************************************************************************************/
+
+	/**
+	 *
 	 * Returns the player Robots from the ReadBoard class
 	 *
 	 * @return br.getPlayerRobots()
 	 */
 	public ArrayList<Robot> getPlayerRobots() {
-		return br.getPlayerRobots();
+		return GenerateBoard.getPlayerRobots();
 	}
 
 	/**
@@ -160,17 +166,27 @@ public class Board {
 	 *
 	 * Return the board array
 	 *
-	 * @return board array
+	 * @return Entity[][] board array
 	 */
 
 	public Entity[][] getBoardEntity() {
 		return boardEntity;
 	}
 
+	/**
+	 * Return the player array
+	 *
+	 * @return Entity[][] Player array
+	 */
 	public Entity[][] getBoardPlayers() {
 		return playerLocations;
 	}
 
+	/**
+	 * @param r Row
+	 * @param c Column
+	 * @return Boolean True or False
+	 */
 	public Boolean checkPlayerEmpty(int r, int c) {
 		if (!(playerLocations[r][c] == null)) {
 			return false;
